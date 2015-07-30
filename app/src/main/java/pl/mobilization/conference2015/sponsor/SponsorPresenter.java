@@ -12,10 +12,11 @@ import android.os.RemoteException;
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
+import pl.mobilization.conference2015.AndroidApplication;
 import pl.mobilization.conference2015.BackgroundProcessService;
 import pl.mobilization.conference2015.sponsor.event.SponsorUpdatedEvent;
+import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
 import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
-import pl.mobilization.conference2015.sponsor.storage.SponsorStorage;
 
 /**
  * Created by msaramak on 29.07.15.
@@ -27,7 +28,7 @@ public class SponsorPresenter {
     SponsorRestService sponsorService;
 
     @Inject
-    SponsorStorage sponsorStorage;
+    SponsorRepository sponsorRepository;
 
     @Inject
     EventBus eventBus;
@@ -38,10 +39,12 @@ public class SponsorPresenter {
     private Messenger mService;
 
 
+
     ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mService = new Messenger(service);
+            requestSponsors();
         }
 
         @Override
@@ -50,13 +53,17 @@ public class SponsorPresenter {
         }
     };
 
+    public SponsorPresenter(SponsorRepository sponsorRepo, SponsorRestService restService, EventBus eventBus) {
+        sponsorService = restService;
+        sponsorRepository = sponsorRepo;
+        this.eventBus  = eventBus;
+    }
+
     public void onBindView(Context context, SponsorsView view) {
         this.context = context;
         this.view = view;
+        context.bindService(new Intent(context, BackgroundProcessService.class), mConnection, Context.BIND_AUTO_CREATE);
         eventBus.register(this);
-        ;
-        context.bindService(new Intent(context, BackgroundProcessService.class), mConnection,Context.BIND_AUTO_CREATE);
-
     }
 
     public void onEvent(SponsorUpdatedEvent event){
@@ -70,6 +77,7 @@ public class SponsorPresenter {
     public void requestSponsors() {
         Message msg = Message.obtain(null, BackgroundProcessService.UPDATE_SPONSORS, 0, 0);
         try {
+            if (mService!=null)
             mService.send(msg);
         } catch (RemoteException e) {
             e.printStackTrace();

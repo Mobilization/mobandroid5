@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015.sponsor.storage;
+package pl.mobilization.conference2015.sponsor.repository;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
 

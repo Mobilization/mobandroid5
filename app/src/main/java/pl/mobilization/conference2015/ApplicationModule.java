@@ -7,11 +7,17 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import de.greenrobot.event.EventBus;
+import pl.mobilization.conference2015.sponsor.SponsorPresenter;
+import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
+import pl.mobilization.conference2015.sponsor.repository.SponsorRepositoryOrmLite;
+import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
+import pl.mobilization.conference2015.sponsor.rest.SponsorRestServiceRetrofit;
 
 /**
  * Created by msaramak on 29.07.15.
  */
-@Module
+@Module(includes = EventBusModule.class)
 public class ApplicationModule {
     private final AndroidApplication application;
 
@@ -24,4 +30,22 @@ public class ApplicationModule {
     Context provideApplicationContext() {
         return this.application;
     }
+
+    @Provides @Singleton
+    public SponsorRestService provideSponsorRestService(){
+        return new SponsorRestServiceRetrofit();
+    }
+
+
+    @Provides @Singleton
+    public SponsorRepository provideSponsorRepository(Context context){
+        return new SponsorRepositoryOrmLite(context);
+    }
+
+    @Provides @Singleton
+    public SponsorPresenter provideSponsorPresenter(SponsorRepository sponsorRepo, SponsorRestService restService, EventBus eventBus){
+        return new SponsorPresenter(sponsorRepo, restService, eventBus);
+    }
+
+
 }

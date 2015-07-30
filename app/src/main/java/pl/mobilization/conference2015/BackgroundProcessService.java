@@ -10,8 +10,9 @@ import android.os.Messenger;
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
+import pl.mobilization.conference2015.sponsor.event.SponsorUpdatedEvent;
+import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
 import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
-import pl.mobilization.conference2015.sponsor.storage.SponsorStorage;
 
 public class BackgroundProcessService extends Service {
     public static final int UPDATE_SPONSORS = 2;
@@ -43,7 +44,7 @@ public class BackgroundProcessService extends Service {
     SponsorRestService sponsorRestService;
 
     @Inject
-    SponsorStorage sponsorStorage;
+    SponsorRepository sponsorStorage;
 
     /**
      *
@@ -53,10 +54,8 @@ public class BackgroundProcessService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        BackgroudComponent component = DaggerBackgroudComponent.create();
-        eventBus = component.provideEventBus();
-        sponsorRestService = component.provideSponsorRestService();
-//        sponsorStorage = component.provideSponsorStorage(getApplicationContext());
+        ((AndroidApplication)getApplicationContext()).getApplicationComponent().inject(this);
+
     }
 
     @Override
@@ -65,6 +64,6 @@ public class BackgroundProcessService extends Service {
     }
 
     private void updateSponsors() {
-
+        eventBus.post(new SponsorUpdatedEvent());
     }
 }
