@@ -10,10 +10,11 @@ import android.os.Messenger;
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
+import lombok.extern.slf4j.Slf4j;
 import pl.mobilization.conference2015.sponsor.event.SponsorUpdatedEvent;
 import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
 import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
-
+@Slf4j
 public class BackgroundProcessService extends Service {
     public static final int UPDATE_SPONSORS = 2;
 
@@ -54,6 +55,7 @@ public class BackgroundProcessService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        log.info("BackgroundProcessService creating");
         ((AndroidApplication)getApplicationContext()).getApplicationComponent().inject(this);
 
     }
@@ -64,6 +66,7 @@ public class BackgroundProcessService extends Service {
     }
 
     private void updateSponsors() {
+        log.debug("updateSponsors " + eventBus);
         eventBus.post(new SponsorUpdatedEvent());
     }
 }

@@ -34,14 +34,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import lombok.extern.slf4j.Slf4j;
 import pl.mobilization.conference2015.sponsor.SponsorsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * TODO
- */
+@Slf4j
 public class MainActivity extends BaseActivity implements HasComponent<UserComponent> {
 
     private DrawerLayout mDrawerLayout;
@@ -51,6 +50,8 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        log.info("MainActivity ");
+
         this.initializeInjector();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,6 +78,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
             public void onClick(View view) {
                 Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                log.info("Snackbar ");
             }
         });
 
