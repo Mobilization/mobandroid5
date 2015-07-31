@@ -43,7 +43,7 @@ public class CheeseListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecyclerView rv = (RecyclerView) inflater.inflate(
-                R.layout.fragment_cheese_list, container, false);
+                R.layout.fragment_sponsors_list, container, false);
         setupRecyclerView(rv);
         return rv;
     }
@@ -54,7 +54,7 @@ public class CheeseListFragment extends Fragment {
                 getRandomSublist(Cheeses.sCheeseStrings, 30)));
     }
 
-    private List<String> getRandomSublist(String[] array, int amount) {
+    public static List<String> getRandomSublist(String[] array, int amount) {
         ArrayList<String> list = new ArrayList<>(amount);
         Random random = new Random();
         while (list.size() < amount) {

@@ -12,11 +12,13 @@ import rx.Observable;
  */
 public class SponsorRestServiceRetrofit implements SponsorRestService {
 
+    public static final String CONFERENCE_MAIN_URL = "http://2015.mobilization.pl";
+    public static final String API = "/api/";
     private SponsorRestService service;
 
     public SponsorRestServiceRetrofit(){
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint("http://2015.mobilization.pl/api/")
+                .setEndpoint(CONFERENCE_MAIN_URL + API)
                 .build();
         service = restAdapter.create(SponsorRestService.class);
     }

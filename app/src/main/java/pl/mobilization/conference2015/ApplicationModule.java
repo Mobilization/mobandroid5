@@ -17,7 +17,7 @@ import pl.mobilization.conference2015.sponsor.rest.SponsorRestServiceRetrofit;
 /**
  * Created by msaramak on 29.07.15.
  */
-@Module(includes = EventBusModule.class)
+@Module(includes = {EventBusModule.class,SchedulersModule.class})
 public class ApplicationModule {
     private final AndroidApplication application;
 

@@ -21,10 +21,6 @@ public interface ApplicationComponent {
     //Exposed to sub-graphs.
     Context context();
 
-//    EventBus eventBus();
-//
-//    SponsorRepository sponsorRepository();
-//    SponsorRestService sponsorRestService();
     SponsorPresenter sponsorPresenter();
 
 
