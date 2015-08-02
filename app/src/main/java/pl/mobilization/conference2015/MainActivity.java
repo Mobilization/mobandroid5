@@ -139,7 +139,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
-                        if (menuItem.getItemId()==R.id.nav_messages){
+                        if (menuItem.getItemId()==R.id.nav_maps){
                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:51.7505458,19.4501351?q=51.7505458,19.4501351 (Hala MTŁ aleja Politechniki 4, Łódź)"));
                                 startActivity(intent);
                         }

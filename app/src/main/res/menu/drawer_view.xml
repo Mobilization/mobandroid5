@@ -22,27 +22,27 @@
             android:icon="@drawable/ic_dashboard"
             android:title="Home" />
         <item
-            android:id="@+id/nav_messages"
-            android:icon="@drawable/ic_event"
-            android:title="Messages" />
+            android:id="@+id/nav_maps"
+            android:icon="@drawable/ic_dashboard"
+            android:title="Maps" />
         <item
             android:id="@+id/nav_friends"
-            android:icon="@drawable/ic_event"
-            android:title="Friends" />
+            android:icon="@drawable/ic_forum"
+            android:title="Share with Friends" />
         <item
             android:id="@+id/nav_discussion"
             android:icon="@drawable/ic_forum"
             android:title="Discussion" />
     </group>
 
-    <item android:title="Sub items">
+    <item android:title="Organizers">
         <menu>
             <item
                 android:icon="@drawable/ic_dashboard"
-                android:title="Sub item 1" />
+                android:title="Juglodz" />
             <item
                 android:icon="@drawable/ic_forum"
-                android:title="Sub item 2" />
+                android:title="App Author" />
         </menu>
     </item>
 

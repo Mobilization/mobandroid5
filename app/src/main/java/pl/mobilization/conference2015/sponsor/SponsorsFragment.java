@@ -40,12 +40,9 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        this.getComponent(UserComponent.class).inject(this);
-
-        presenter.onBindView(getActivity(), this);
-        presenter.requestSponsors();
 
     }
+
 
     @Override
     public void onResume() {
@@ -66,6 +63,9 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
         RecyclerView rv = (RecyclerView) inflater.inflate(
                 R.layout.fragment_sponsors_list, container, false);
         setupRecyclerView(rv);
+        this.getComponent(UserComponent.class).inject(this);
+        presenter.onBindView(getActivity(), this);
+        presenter.requestSponsors();
         return rv;
     }
 
@@ -165,17 +165,9 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
         rv.setAdapter(adapter);
     }
 
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        presenter.onUnbindView();
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        presenter.onUnbindView();
     }
 
     @Override

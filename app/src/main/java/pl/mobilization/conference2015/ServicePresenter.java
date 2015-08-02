@@ -43,16 +43,16 @@ public abstract class ServicePresenter {
 
     public ServicePresenter(EventBus eventBus) {
         this.eventBus = eventBus;
+        eventBus.register(this);
     }
 
     protected void onBindView(Context context) {
         this.context = context;
         context.bindService(new Intent(context, BackgroundProcessService.class), mConnection, Context.BIND_AUTO_CREATE);
-        eventBus.register(this);
+
     }
 
     public void onUnbindView() {
         context.unbindService(mConnection);
-        eventBus.unregister(this);
     }
 }
