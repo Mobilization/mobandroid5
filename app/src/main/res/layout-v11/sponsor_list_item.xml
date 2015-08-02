@@ -24,16 +24,21 @@
     android:clickable="true"
     android:focusable="true"
     android:paddingBottom="8dp"
+    android:background="?android:attr/selectableItemBackground"
     android:gravity="center_vertical">
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="@dimen/list_item_avatar_size"
+        android:clickable="false"
+        android:focusable="false"
         android:layout_height="@dimen/list_item_avatar_size"
         android:layout_marginRight="16dp"/>
 
     <TextView
         android:id="@android:id/text1"
+        android:clickable="false"
+        android:focusable="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem"/>

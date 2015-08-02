@@ -123,8 +123,7 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
                 mView = view;
                 mImageView = (ImageView) view.findViewById(R.id.logo);
                 mTextView = (TextView) view.findViewById(android.R.id.text1);
-                mImageView.setOnClickListener(this);
-                mTextView.setOnClickListener(this);
+
                 mView.setOnClickListener(this);
                 eventBus = EventBus.getDefault();
             }

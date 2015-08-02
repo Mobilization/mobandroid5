@@ -16,6 +16,8 @@
 
 package pl.mobilization.conference2015;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -81,6 +83,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
                 log.info("Snackbar ");
             }
         });
+        fab.setVisibility(View.GONE);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -116,6 +119,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -135,6 +139,10 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
+                        if (menuItem.getItemId()==R.id.nav_messages){
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:51.7505458,19.4501351?q=51.7505458,19.4501351 (Hala MTŁ aleja Politechniki 4, Łódź)"));
+                                startActivity(intent);
+                        }
                         return true;
                     }
                 });

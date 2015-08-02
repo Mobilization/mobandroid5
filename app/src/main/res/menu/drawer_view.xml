@@ -27,7 +27,7 @@
             android:title="Messages" />
         <item
             android:id="@+id/nav_friends"
-            android:icon="@drawable/ic_headset"
+            android:icon="@drawable/ic_event"
             android:title="Friends" />
         <item
             android:id="@+id/nav_discussion"
