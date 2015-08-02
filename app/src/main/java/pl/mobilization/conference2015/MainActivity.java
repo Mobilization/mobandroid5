@@ -143,18 +143,38 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
-                        if (menuItem.getItemId()==R.id.nav_maps){
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:51.7505458,19.4501351?q=51.7505458,19.4501351 (Hala MTŁ aleja Politechniki 4, Łódź)"));
+                        switch (menuItem.getItemId()) {
+                            case R.id.nav_maps:
+                                openMap();
+                                break;
+                            case R.id.nav_add_to_calendar: {
+                                Intent intent = generateCalendarEvent();
                                 startActivity(intent);
-                        }
-                        if (menuItem.getItemId()==R.id.nav_add_to_calendar){
-                            Intent intent = generateCalendarEvent();
-
-                            startActivity(intent);
+                                break;
+                            }
+                            case R.id.nav_discussion: {
+                                Intent i = getOpenTwitterIntent("mobilizationpl");
+                                startActivity(i);
+                                break;
+                            }
                         }
                         return true;
                     }
                 });
+    }
+
+    private Intent getOpenTwitterIntent(String username) {
+        try {
+            this.getPackageManager().getPackageInfo("com.twitter.android", 0);
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name="+ username));
+        } catch (Exception e) {
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/#!/" + username));
+        }
+    }
+
+    private void openMap() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:51.7505458,19.4501351?q=51.7505458,19.4501351 (Hala MTŁ aleja Politechniki 4, Łódź)"));
+        startActivity(intent);
     }
 
     @NonNull

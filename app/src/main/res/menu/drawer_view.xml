@@ -23,7 +23,7 @@
             android:title="Home" />
         <item
             android:id="@+id/nav_maps"
-            android:icon="@drawable/ic_dashboard"
+            android:icon="@drawable/ic_action_room"
             android:title="Maps" />
         <item
             android:id="@+id/nav_add_to_calendar"
@@ -31,7 +31,7 @@
             android:title="Add event to calendar" />
         <item
             android:id="@+id/nav_discussion"
-            android:icon="@drawable/ic_forum"
+            android:icon="@drawable/ic_twittericon"
             android:title="Discussion" />
     </group>
 
