@@ -19,6 +19,8 @@ package pl.mobilization.conference2015;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -36,7 +38,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.mobilization.conference2015.sponsor.SponsorsFragment;
@@ -143,9 +147,32 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
                                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:51.7505458,19.4501351?q=51.7505458,19.4501351 (Hala MTŁ aleja Politechniki 4, Łódź)"));
                                 startActivity(intent);
                         }
+                        if (menuItem.getItemId()==R.id.nav_add_to_calendar){
+                            Intent intent = generateCalendarEvent();
+
+                            startActivity(intent);
+                        }
                         return true;
                     }
                 });
+    }
+
+    @NonNull
+    private Intent generateCalendarEvent() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(2015, 9, 17, 9, 0);
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal.getTimeInMillis());
+        intent.putExtra(CalendarContract.Events.ALL_DAY, false);
+        intent.putExtra(CalendarContract.Events.ORGANIZER, "contact@mobilization.pl");
+        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, "51.7505458,19.4501351 (Hala MTŁ aleja Politechniki 4, Łódź)");
+
+        intent.putExtra(CalendarContract.Events.RRULE, "FREQ=DAILY;COUNT=1");
+        intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cal.getTimeInMillis()+9*60*60*1000);
+        intent.putExtra(CalendarContract.Events.TITLE, "Mobilization 5");
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, "http://www.mobilization.pl");
+        return intent;
     }
 
 

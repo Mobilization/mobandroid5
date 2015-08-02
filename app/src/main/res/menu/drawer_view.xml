@@ -26,9 +26,9 @@
             android:icon="@drawable/ic_dashboard"
             android:title="Maps" />
         <item
-            android:id="@+id/nav_friends"
-            android:icon="@drawable/ic_forum"
-            android:title="Share with Friends" />
+            android:id="@+id/nav_add_to_calendar"
+            android:icon="@drawable/ic_event"
+            android:title="Add event to calendar" />
         <item
             android:id="@+id/nav_discussion"
             android:icon="@drawable/ic_forum"
