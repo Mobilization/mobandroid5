@@ -157,10 +157,35 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
                                 startActivity(i);
                                 break;
                             }
+                            case R.id.nav_org: {
+                                Intent i = getWWWIntent("http://www.juglodz.pl");
+                                startActivity(i);
+                                break;
+                            }
+                            case R.id.nav_author: {
+                                startActivity(getGmailIntent());
+                                break;
+                            }
                         }
                         return true;
                     }
                 });
+    }
+
+    private Intent getGmailIntent() {
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+        sendIntent.setType("plain/text");
+        sendIntent.setData(Uri.parse("contact@mobilization.pl"));
+        sendIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+        sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { "contact@mobilization.pl" });
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "mobilization app");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "hello. this is a message sent from mobilization app:");
+        startActivity(sendIntent);
+        return sendIntent;
+    }
+
+    private Intent getWWWIntent(String url) {
+        return new Intent(Intent.ACTION_VIEW, Uri.parse(url));
     }
 
     private Intent getOpenTwitterIntent(String username) {

@@ -38,9 +38,11 @@
     <item android:title="Organizers">
         <menu>
             <item
-                android:icon="@drawable/ic_dashboard"
+                android:id="@+id/nav_org"
+                android:icon="@drawable/ic_action_account_child"
                 android:title="Juglodz" />
             <item
+                android:id="@+id/nav_author"
                 android:icon="@drawable/ic_forum"
                 android:title="App Author" />
         </menu>
