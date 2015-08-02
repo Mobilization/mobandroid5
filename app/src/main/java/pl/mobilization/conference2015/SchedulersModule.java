@@ -15,14 +15,18 @@ import rx.schedulers.Schedulers;
 @Module
 public class SchedulersModule {
 
-    @Provides @Singleton @Named("main")
-    public Scheduler provideMainScheduler(){
+    @Provides
+    @Singleton
+    @Named("main")
+    public Scheduler provideMainScheduler() {
         return AndroidSchedulers.mainThread();
     }
 
 
-    @Provides @Singleton @Named("internet")
-    public Scheduler provideInternetScheduler(){
+    @Provides
+    @Singleton
+    @Named("internet")
+    public Scheduler provideInternetScheduler() {
         return Schedulers.io();
     }
 }

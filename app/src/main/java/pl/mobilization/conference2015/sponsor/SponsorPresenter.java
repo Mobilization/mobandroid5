@@ -2,7 +2,6 @@ package pl.mobilization.conference2015.sponsor;
 
 import android.content.Context;
 import android.os.Message;
-import android.os.Messenger;
 import android.os.RemoteException;
 
 import java.util.List;
@@ -53,10 +52,15 @@ public class SponsorPresenter extends ServicePresenter {
         this.view = view;
     }
 
-    public void onEvent(SponsorUpdatedEvent event){
+    public void onEvent(SponsorUpdatedEvent event) {
         Sponsors sponsors = event.getSponsors();
         SponsorsViewModel model = convert(sponsors);
         view.updateSponsors(model);
+    }
+
+    public void onEvent(OnSponsorClickEvent event) {
+        view.showSponsorDialog(event);
+
     }
 
     private SponsorsViewModel convert(Sponsors sponsors) {
@@ -69,7 +73,7 @@ public class SponsorPresenter extends ServicePresenter {
     }
 
     private void addSponsorsFromLevel(List<Sponsor> sponsors, SponsorsViewModel model, SponsorViewModel.Level level) {
-        if(!sponsors.isEmpty()){
+        if (!sponsors.isEmpty()) {
             model.addSponsor(SponsorViewModel.title(level));
         }
         for (Sponsor sponsor : sponsors) {
@@ -81,9 +85,9 @@ public class SponsorPresenter extends ServicePresenter {
     public void requestSponsors() {
         Message msg = Message.obtain(null, BackgroundProcessService.UPDATE_SPONSORS, 0, 0);
         try {
-            if (mService!=null){
+            if (mService != null) {
                 mService.send(msg);
-            }else{
+            } else {
                 log.debug("Service is null");
             }
         } catch (RemoteException e) {

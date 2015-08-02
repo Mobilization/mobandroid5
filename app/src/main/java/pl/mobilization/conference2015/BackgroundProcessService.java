@@ -1,36 +1,66 @@
 package pl.mobilization.conference2015;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
+import pl.mobilization.conference2015.sponsor.SponsorRepoModel;
+import pl.mobilization.conference2015.sponsor.SponsorViewModel;
 import pl.mobilization.conference2015.sponsor.event.SponsorUpdatedEvent;
 import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
+import pl.mobilization.conference2015.sponsor.rest.Sponsor;
 import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
 import pl.mobilization.conference2015.sponsor.rest.Sponsors;
 import rx.Observer;
 import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+
+import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.DIAMOND;
+import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.GOLD;
+import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.PLATINIUM;
+import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.SILVER;
 
 @Slf4j
 public class BackgroundProcessService extends Service {
     public static final int UPDATE_SPONSORS = 2;
-
+    /**
+     *
+     */
+    final Messenger mMessenger = new Messenger(new IncomingCommandHandler());
+    @Inject
+    EventBus eventBus;
+    @Inject
+    SponsorRestService sponsorRestService;
+    @Inject
+    SponsorRepository sponsorRepository;
+    @Inject
+    @Named("main")
+    Scheduler mainScheduler;
+    @Inject
+    @Named("internet")
+    Scheduler internetSchedyler;
 
     public BackgroundProcessService() {
     }
 
 
+    /**
+     * communication between UI and Background service
+     */
     class IncomingCommandHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
@@ -46,26 +76,6 @@ public class BackgroundProcessService extends Service {
 
     }
 
-    @Inject
-    EventBus eventBus;
-
-    @Inject
-    SponsorRestService sponsorRestService;
-
-    @Inject
-    SponsorRepository sponsorRepository;
-
-    @Inject @Named("main")
-    Scheduler mainScheduler;
-
-    @Inject @Named("internet")
-    Scheduler internetSchedyler;
-
-    /**
-     *
-     */
-    final Messenger mMessenger = new Messenger(new IncomingCommandHandler());
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -79,25 +89,92 @@ public class BackgroundProcessService extends Service {
         return mMessenger.getBinder();
     }
 
+    /**
+     * Important
+     */
     private void updateSponsors() {
         log.debug("updateSponsors " + eventBus);
-        sponsorRestService.getSponsors().subscribeOn(internetSchedyler)
-                .observeOn(mainScheduler).subscribe(new Observer<Sponsors>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
-            public void onNext(Sponsors sponsors) {
-                eventBus.post(new SponsorUpdatedEvent(sponsors));
-            }
-        });
+        takeSponsorListFromRepoAndSendToUI();
+        takeSponsorsFromRestSaveAndSendToUI();
 
 
     }
+
+    private void takeSponsorsFromRestSaveAndSendToUI() {
+        sponsorRestService.getSponsors().doOnNext(new SaveSponsorsFromRest(sponsorRepository))
+                .subscribeOn(internetSchedyler)
+                .observeOn(mainScheduler)
+                .subscribe(new UpdateSponsorsEventGenerator(getApplicationContext(), eventBus));
+    }
+
+    private void takeSponsorListFromRepoAndSendToUI() {
+        sponsorRepository.getSponsors()
+                .subscribeOn(internetSchedyler)
+                .observeOn(mainScheduler).subscribe(new UpdateSponsorsEventGenerator(getApplicationContext(), eventBus));
+    }
+
+    private static class SaveSponsorsFromRest implements Action1<Sponsors> {
+
+
+        private SponsorRepository sponsorRepository;
+
+        public SaveSponsorsFromRest(SponsorRepository sponsorRepository) {
+            this.sponsorRepository = sponsorRepository;
+        }
+
+        private void addSponsorsToRepo(List<Sponsor> list, List<SponsorRepoModel> models, SponsorViewModel.Level level) {
+            for (Sponsor s : list) {
+                SponsorRepoModel model = convert(s, level);
+                models.add(model);
+            }
+        }
+
+        @NonNull
+        private SponsorRepoModel convert(Sponsor s, SponsorViewModel.Level level) {
+            SponsorRepoModel model = new SponsorRepoModel();
+            model.level = level.ordinal();
+            model.descriptionHtml = s.description_html;
+            model.logo = s.logo_url;
+            model.name = s.name;
+            model.url = s.link;
+            return model;
+        }
+
+        @Override
+        public void call(Sponsors sponsors) {
+            List<SponsorRepoModel> models = new ArrayList<SponsorRepoModel>();
+            addSponsorsToRepo(sponsors.diamond, models, DIAMOND);
+            addSponsorsToRepo(sponsors.platinum, models, PLATINIUM);
+            addSponsorsToRepo(sponsors.gold, models, GOLD);
+            addSponsorsToRepo(sponsors.silver, models, SILVER);
+            sponsorRepository.saveSponsors(models);
+        }
+    }
+
+
+    private static class UpdateSponsorsEventGenerator implements Observer<Sponsors> {
+        private Context context;
+        private EventBus eventBus;
+
+        public UpdateSponsorsEventGenerator(Context context, EventBus eventBus) {
+            this.context = context;
+            this.eventBus = eventBus;
+        }
+
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onNext(Sponsors sponsors) {
+            eventBus.post(new SponsorUpdatedEvent(sponsors));
+        }
+    }
+
 }

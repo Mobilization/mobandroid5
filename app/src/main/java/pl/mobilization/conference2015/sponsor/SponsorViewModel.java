@@ -5,7 +5,6 @@ import android.net.Uri;
 import com.google.common.base.Optional;
 
 import lombok.Getter;
-import lombok.Value;
 import lombok.experimental.Builder;
 import pl.mobilization.conference2015.sponsor.rest.Sponsor;
 import pl.mobilization.conference2015.sponsor.rest.SponsorRestServiceRetrofit;

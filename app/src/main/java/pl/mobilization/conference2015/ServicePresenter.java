@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
-import pl.mobilization.conference2015.sponsor.SponsorsView;
 
 /**
  * Created by msaramak on 31.07.15.
@@ -20,7 +19,8 @@ import pl.mobilization.conference2015.sponsor.SponsorsView;
 public abstract class ServicePresenter {
 
 
-    @Inject EventBus eventBus;
+    @Inject
+    EventBus eventBus;
     protected Context context;
 
     protected Messenger mService;
@@ -50,7 +50,8 @@ public abstract class ServicePresenter {
         context.bindService(new Intent(context, BackgroundProcessService.class), mConnection, Context.BIND_AUTO_CREATE);
         eventBus.register(this);
     }
-    public void onUnbindView(){
+
+    public void onUnbindView() {
         context.unbindService(mConnection);
         eventBus.unregister(this);
     }

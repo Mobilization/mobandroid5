@@ -1,8 +1,5 @@
 package pl.mobilization.conference2015.sponsor.rest;
 
-import java.util.List;
-
-import pl.mobilization.conference2015.sponsor.SponsorModel;
 import retrofit.http.GET;
 import rx.Observable;
 

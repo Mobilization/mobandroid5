@@ -13,7 +13,8 @@ public class SponsorsViewModel {
     public SponsorsViewModel() {
         this.sponsors = new ArrayList<>();
     }
-    public void addSponsor(SponsorViewModel sponsor){
+
+    public void addSponsor(SponsorViewModel sponsor) {
         sponsors.add(sponsor);
     }
 

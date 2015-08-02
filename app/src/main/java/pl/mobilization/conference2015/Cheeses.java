@@ -16,8 +16,6 @@
 
 package pl.mobilization.conference2015;
 
-import pl.mobilization.conference2015.R;
-
 import java.util.Random;
 
 public class Cheeses {

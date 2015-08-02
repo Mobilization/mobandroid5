@@ -5,13 +5,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.util.List;
 
-
-import dagger.Component;
-import dagger.Module;
 import pl.mobilization.conference2015.BuildConfig;
-import pl.mobilization.conference2015.sponsor.SponsorModel;
 import rx.Observable;
 
 import static org.fest.assertions.api.Assertions.assertThat;

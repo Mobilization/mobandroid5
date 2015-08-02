@@ -12,8 +12,9 @@ import de.greenrobot.event.EventBus;
 @Module
 public class EventBusModule {
 
-    @Provides @Singleton
-    public EventBus provideEventBus(){
+    @Provides
+    @Singleton
+    public EventBus provideEventBus() {
         return EventBus.getDefault();
     }
 

@@ -25,7 +25,6 @@ import android.view.Menu;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import pl.mobilization.conference2015.R;
 
 public class CheeseDetailActivity extends AppCompatActivity {
 

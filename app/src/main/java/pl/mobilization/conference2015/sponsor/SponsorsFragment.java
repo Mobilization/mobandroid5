@@ -1,12 +1,11 @@
 package pl.mobilization.conference2015.sponsor;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,19 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.common.base.Optional;
-
-import java.security.acl.AclNotFoundException;
 
 import javax.inject.Inject;
 
+import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
-import pl.mobilization.conference2015.AndroidApplication;
 import pl.mobilization.conference2015.BaseFragment;
-import pl.mobilization.conference2015.CheeseListFragment;
-import pl.mobilization.conference2015.Cheeses;
 import pl.mobilization.conference2015.R;
 import pl.mobilization.conference2015.UserComponent;
+import pl.mobilization.conference2015.ui.component.LogoTitleDialog;
 
 /**
  * Created by msaramak on 29.07.15.
@@ -41,23 +36,13 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
     SponsorPresenter presenter;
     private SponsorRecyclerViewAdapter adapter;
 
-
-    public SponsorsFragment() {
-        log.info("SponsorsFragment");
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        log.debug("onActivityCreated");
+
         super.onActivityCreated(savedInstanceState);
         this.getComponent(UserComponent.class).inject(this);
+
         presenter.onBindView(getActivity(), this);
-        log.debug("onActivityCreated");
         presenter.requestSponsors();
 
     }
@@ -124,12 +109,13 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
             return model.size();
         }
 
-        public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             public final View mView;
             public final ImageView mImageView;
             public final TextView mTextView;
             private SponsorViewModel model;
+            private EventBus eventBus;
 
 
             public ViewHolder(View view) {
@@ -140,26 +126,29 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
                 mImageView.setOnClickListener(this);
                 mTextView.setOnClickListener(this);
                 mView.setOnClickListener(this);
+                eventBus = EventBus.getDefault();
             }
 
             @Override
             public void onClick(View v) {
-                if (model.getLink().isPresent()){
+                if (model.getLink().isPresent()) {
                     runBrowser();
-                }else{
-                    showDialogWithDescription(model.getDescription());
+                } else {
+                    showDialogWithDescription(model);
                 }
             }
 
-            private void showDialogWithDescription(Optional<String> description) {
-                log.debug("Show dialog with description " + description.or("Description not avaliable"));
+            private void showDialogWithDescription(SponsorViewModel model) {
+                log.debug("Show dialog with description " + model.description.or("Description not avaliable"));
+                eventBus.post(new OnSponsorClickEvent(model));
+
             }
 
             private void runBrowser() {
                 try {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, model.getLink().get());
                     mView.getContext().startActivity(browserIntent);
-                }catch (ActivityNotFoundException e){
+                } catch (ActivityNotFoundException e) {
                     Toast.makeText(mImageView.getContext(), R.string.browser_not_found, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -177,20 +166,6 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
         rv.setAdapter(adapter);
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        log.debug("onViewCreated");
-
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-    }
-
-
 
     @Override
     public void onDetach() {
@@ -206,7 +181,13 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
 
     @Override
     public void updateSponsors(SponsorsViewModel model) {
-        Toast.makeText(getActivity(), "new sponsor model", Toast.LENGTH_SHORT).show();
         adapter.updateModel(model);
+    }
+
+    @Override
+    public void showSponsorDialog(OnSponsorClickEvent event) {
+        LogoTitleDialog dialog = LogoTitleDialog.create(event.getCompanyName(), event.getLogo(), event.getDescriptionHtml());
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        dialog.show(ft, "sponsordialog");
     }
 }

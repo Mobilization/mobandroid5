@@ -1,6 +1,5 @@
 package pl.mobilization.conference2015;
 
-import android.app.Application;
 import android.content.Context;
 
 import javax.inject.Singleton;
@@ -17,7 +16,7 @@ import pl.mobilization.conference2015.sponsor.rest.SponsorRestServiceRetrofit;
 /**
  * Created by msaramak on 29.07.15.
  */
-@Module(includes = {EventBusModule.class,SchedulersModule.class})
+@Module(includes = {EventBusModule.class, SchedulersModule.class})
 public class ApplicationModule {
     private final AndroidApplication application;
 
@@ -31,19 +30,22 @@ public class ApplicationModule {
         return this.application;
     }
 
-    @Provides @Singleton
-    public SponsorRestService provideSponsorRestService(){
+    @Provides
+    @Singleton
+    public SponsorRestService provideSponsorRestService() {
         return new SponsorRestServiceRetrofit();
     }
 
 
-    @Provides @Singleton
-    public SponsorRepository provideSponsorRepository(Context context){
+    @Provides
+    @Singleton
+    public SponsorRepository provideSponsorRepository(Context context) {
         return new SponsorRepositoryOrmLite(context);
     }
 
-    @Provides @Singleton
-    public SponsorPresenter provideSponsorPresenter(SponsorRepository sponsorRepo, SponsorRestService restService, EventBus eventBus){
+    @Provides
+    @Singleton
+    public SponsorPresenter provideSponsorPresenter(SponsorRepository sponsorRepo, SponsorRestService restService, EventBus eventBus) {
         return new SponsorPresenter(sponsorRepo, restService, eventBus);
     }
 

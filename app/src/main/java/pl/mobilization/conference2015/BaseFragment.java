@@ -10,6 +10,6 @@ public class BaseFragment extends Fragment {
 
     @SuppressWarnings("unchecked")
     protected <C> C getComponent(Class<C> componentType) {
-        return componentType.cast(((HasComponent<C>)getActivity()).getComponent());
+        return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
     }
 }

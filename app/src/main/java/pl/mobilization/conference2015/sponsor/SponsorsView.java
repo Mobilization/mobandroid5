@@ -7,4 +7,5 @@ public interface SponsorsView {
 
     public void updateSponsors(SponsorsViewModel model);
 
+    void showSponsorDialog(OnSponsorClickEvent event);
 }

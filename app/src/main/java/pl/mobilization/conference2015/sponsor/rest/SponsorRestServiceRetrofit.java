@@ -1,10 +1,6 @@
 package pl.mobilization.conference2015.sponsor.rest;
 
-import java.util.List;
-
-import pl.mobilization.conference2015.sponsor.SponsorModel;
 import retrofit.RestAdapter;
-import retrofit.http.GET;
 import rx.Observable;
 
 /**
@@ -16,7 +12,7 @@ public class SponsorRestServiceRetrofit implements SponsorRestService {
     public static final String API = "/api/";
     private SponsorRestService service;
 
-    public SponsorRestServiceRetrofit(){
+    public SponsorRestServiceRetrofit() {
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(CONFERENCE_MAIN_URL + API)
                 .build();

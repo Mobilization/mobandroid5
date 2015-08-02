@@ -31,7 +31,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import pl.mobilization.conference2015.R;
 
 import java.util.ArrayList;
 import java.util.List;

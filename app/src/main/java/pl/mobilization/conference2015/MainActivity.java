@@ -28,23 +28,23 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import lombok.extern.slf4j.Slf4j;
-import pl.mobilization.conference2015.sponsor.SponsorsFragment;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import lombok.extern.slf4j.Slf4j;
+import pl.mobilization.conference2015.sponsor.SponsorsFragment;
 
 @Slf4j
 public class MainActivity extends BaseActivity implements HasComponent<UserComponent> {
 
     private DrawerLayout mDrawerLayout;
     private UserComponent userComponent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +94,11 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
                 .activityModule(getActivityModule())
                 .userModule(new UserModule())
                 .build();
+
     }
-    @Override public UserComponent getComponent() {
+
+    @Override
+    public UserComponent getComponent() {
         return userComponent;
     }
 
@@ -105,6 +108,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
         getMenuInflater().inflate(R.menu.sample_actions, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -127,14 +131,15 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
     private void setupDrawerContent(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                menuItem.setChecked(true);
-                mDrawerLayout.closeDrawers();
-                return true;
-            }
-        });
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
     }
+
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();
