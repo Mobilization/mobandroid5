@@ -93,13 +93,16 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
             holder.mTextView.setText(sponsorView.getDisplayName());
             if (sponsorView.isTitle()) {
                 holder.mTextView.setTextSize(30.0f);
-                return;
+                holder.mImageView.setVisibility(View.GONE);
+            }else{
+                holder.mTextView.setTextSize(12.0f);
+                holder.mImageView.setVisibility(View.VISIBLE);
+                log.debug("logouri " + sponsorView.getLogoUrl());
+                Glide.with(holder.mImageView.getContext())
+                        .fromUri().load(sponsorView.getLogoUrl().or(EMPTY_SPONSOR_LOGO))
+                        .fitCenter()
+                        .into(holder.mImageView);
             }
-            log.debug("logouri " + sponsorView.getLogoUrl());
-            Glide.with(holder.mImageView.getContext())
-                    .fromUri().load(sponsorView.getLogoUrl().or(EMPTY_SPONSOR_LOGO))
-                    .fitCenter()
-                    .into(holder.mImageView);
             holder.setModel(sponsorView);
 
         }
@@ -123,7 +126,6 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
                 mView = view;
                 mImageView = (ImageView) view.findViewById(R.id.logo);
                 mTextView = (TextView) view.findViewById(android.R.id.text1);
-
                 mView.setOnClickListener(this);
                 eventBus = EventBus.getDefault();
             }

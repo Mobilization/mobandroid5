@@ -21,20 +21,22 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="8dp"
-    android:clickable="true"
-    android:focusable="true"
     android:paddingBottom="8dp"
-    android:gravity="center_vertical">
+    android:clickable="true"
+    android:orientation="vertical"
+    style="@style/listitem"
+    android:focusable="true"
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="@dimen/list_item_avatar_size"
         android:layout_height="@dimen/list_item_avatar_size"
-        android:layout_marginRight="16dp"/>
+        />
 
     <TextView
         android:id="@android:id/text1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem"/>
 
