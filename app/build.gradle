@@ -1,4 +1,14 @@
+buildscript {
+    repositories {
+        maven { url 'http://download.crashlytics.com/maven' }
+    }
+
+    dependencies {
+        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'crashlytics'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.github.triplet.play'
 android {
@@ -49,6 +59,7 @@ android {
 
 repositories {
     jcenter()
+    maven { url 'http://download.crashlytics.com/maven' }
 
 }
 
@@ -87,4 +98,5 @@ dependencies {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
     testCompile 'org.mockito:mockito-all:1.9.5'
+    compile 'com.crashlytics.android:crashlytics:1.+'
 }

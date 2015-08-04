@@ -1,6 +1,7 @@
 package pl.mobilization.conference2015;
 
 import android.app.Application;
+import com.crashlytics.android.Crashlytics;
 
 /**
  * Created by msaramak on 29.07.15.
@@ -15,6 +16,7 @@ public class AndroidApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Crashlytics.start(this);
         initializeInjector();
     }
 
