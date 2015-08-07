@@ -1,10 +1,7 @@
 buildscript {
-    repositories {
-        maven { url 'http://download.crashlytics.com/maven' }
-    }
 
     dependencies {
-        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
+
     }
 }
 apply plugin: 'com.android.application'
@@ -40,6 +37,9 @@ android {
         versionCode 3
         versionName "1.0"
         signingConfig signingConfigs.debug
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -60,6 +60,10 @@ android {
         track = 'beta'
         serviceAccountEmail = '1089833918323-itjk5euuvrqq0r3ndjonqn4h001p43u9@developer.gserviceaccount.com'
         pk12File = file('keystore/Google Play Android Developer-977860d1526c.p12')
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
     }
 }
 
@@ -107,4 +111,12 @@ dependencies {
     }
     testCompile 'org.mockito:mockito-all:1.9.5'
     testCompile 'org.robospock:robospock:0.6.0-rc'
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+    androidTestCompile('com.android.support.test:runner:0.3'){
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
 }

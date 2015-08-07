@@ -3,6 +3,7 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url 'http://download.crashlytics.com/maven' }
         mavenCentral()
     }
     dependencies {
@@ -11,6 +12,7 @@ buildscript {
         classpath 'com.github.triplet.gradle:play-publisher:1.1.2'
         classpath 'me.tatarka:gradle-retrolambda:3.2.0'
         classpath 'org.codehaus.groovy:gradle-groovy-android-plugin:0.3.6'
+        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
     }
 
 }
