@@ -3,6 +3,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import pl.mobilization.conference2015.MainActivity;
@@ -22,7 +23,8 @@ public class FirstScreenEspressoTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule(MainActivity.class);
 
-    public void listGoesOverTheFold() {
+    @Test
+    public void shouldShowFirstScreen() {
         onView(withText("Mobilization 5")).check(matches(isDisplayed()));
     }
 }
