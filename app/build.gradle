@@ -1,10 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.github.triplet.play'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'groovyx.grooid.groovy-android'
+
 android {
     compileSdkVersion 21
     buildToolsVersion "22.0.1"
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     signingConfigs {
         release {
             storeFile file("keystore/release.keystore")
@@ -19,7 +25,7 @@ android {
 
     defaultConfig {
         applicationId "pl.mobilization.conference2015"
-        minSdkVersion 9
+        minSdkVersion 15
         targetSdkVersion 21
         versionCode 2
         versionName "1.0"
@@ -62,7 +68,7 @@ dependencies {
     //rxjava
     compile 'io.reactivex:rxjava:1.0.+'
     compile 'io.reactivex:rxjava-debug:1.0.+'
-    compile 'io.reactivex:rxandroid:0.+'
+    compile 'io.reactivex:rxandroid:1.0.0'
     //ormlite
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
@@ -87,4 +93,5 @@ dependencies {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
     testCompile 'org.mockito:mockito-all:1.9.5'
+    testCompile 'org.robospock:robospock:0.6.0-rc'
 }

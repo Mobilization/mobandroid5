@@ -37,18 +37,9 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
     private SponsorRecyclerViewAdapter adapter;
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-
-        super.onActivityCreated(savedInstanceState);
-
-    }
-
-
-    @Override
     public void onResume() {
         log.debug("resume");
         super.onResume();
-
     }
 
     @Override

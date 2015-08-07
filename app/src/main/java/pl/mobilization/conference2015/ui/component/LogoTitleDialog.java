@@ -31,12 +31,13 @@ public class LogoTitleDialog extends DialogFragment {
     private static final String TITLE_KEY = "TITLE";
     private static final String LOGO_KEY = "LOGO";
     private static final String DESCRIPTION_KEY = "DESCRIPTION";
-    private String title;
-    private Uri logo;
-    private String description;
-    private ImageView logoImageView;
-    private TextView titleTv;
-    private TextView descriptionTv;
+    String title;
+    Uri logo;
+    String description;
+
+    ImageView logoImageView;
+    TextView titleTv;
+    TextView descriptionTv;
 
     public LogoTitleDialog() {
 
@@ -71,37 +72,14 @@ public class LogoTitleDialog extends DialogFragment {
         titleTv.setText(title);
         descriptionTv.setText(Html.fromHtml(description));
         descriptionTv.setMovementMethod(new ScrollingMovementMethod());
-        Glide.with(getActivity())
-                    .fromUri().load(logo)
-                    .fitCenter().into(logoImageView);
+        downloadLogo(inflater);
         return view;
     }
 
-//    @NonNull
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setTitle(title);
-////        titleTv.setText(title);
-////        descriptionTv.setText(Html.fromHtml(description));
-////        GlideDrawable res = null;
-////        try {
-////            res = Glide.with(getActivity())
-////                    .fromUri().load(logo)
-////                    .fitCenter().into(200, 200).get();
-////        } catch (InterruptedException e) {
-////            e.printStackTrace();
-////        } catch (ExecutionException e) {
-////            e.printStackTrace();
-////        }
-////        builder.setIcon(res);
-//        builder.setMessage(Html.fromHtml(description)).setCancelable(true).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                dialogInterface.dismiss();
-//            }
-//        });
-//        // Create the AlertDialog object and return it
-//        return builder.create();
-//    }
+    private void downloadLogo(LayoutInflater inflater) {
+        Glide.with(inflater.getContext())
+                    .fromUri().load(logo)
+                    .fitCenter().into(logoImageView);
+    }
+
 }
