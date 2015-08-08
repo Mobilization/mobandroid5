@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/Mobilization/mobandroid5.svg?branch=master)](https://travis-ci.org/Mobilization/mobandroid5/)
+
 Mobilization Mobile Client Application 
 ==============
 Sample application for Mobilization conference 2015. 
