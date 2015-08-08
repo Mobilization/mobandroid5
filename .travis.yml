@@ -9,7 +9,10 @@ android:
     - sys-img-armeabi-v7a-android-21
     - extra
 
+notifications:
+  slack: mobilization5:29GuNiBvAsuVKr2lwF9Qi4nn
+
 script:
     - echo "Travis branch is $TRAVIS_BRANCH"
     - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
-    - ./gradlew assembleDebug
+    - ./gradlew test
