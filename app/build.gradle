@@ -105,18 +105,30 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.easytesting:fest:1.0.16'
     testCompile 'com.squareup:fest-android:1.0.8'
-    testCompile('org.robolectric:robolectric:3.0-rc2') {
+    testCompile('org.robolectric:robolectric:3.0') {
         exclude group: 'commons-logging', module: 'commons-logging'
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
     testCompile 'org.mockito:mockito-all:1.9.5'
-    testCompile 'org.robospock:robospock:0.6.0-rc'
+    //testCompile 'org.robospock:robospock:0.6.3-beta-1'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2') {
         exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
     }
     androidTestCompile('com.android.support.test:runner:0.3'){
         exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2') {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
     }
 
 }

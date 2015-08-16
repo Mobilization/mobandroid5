@@ -1,5 +1,7 @@
 package pl.mobilization.conference2015.sponsor.rest;
 
+import android.test.suitebuilder.annotation.LargeTest;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -20,6 +22,7 @@ public class SponsorRestServiceTest {
 
 
     @Test
+    @LargeTest
     public void downloadSponsorsTest(){
         SponsorRestService service = new SponsorRestServiceRetrofit();
         Observable<Sponsors> osponsors = service.getSponsors();

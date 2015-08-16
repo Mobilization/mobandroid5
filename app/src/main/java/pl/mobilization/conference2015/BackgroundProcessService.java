@@ -25,6 +25,7 @@ import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
 import pl.mobilization.conference2015.sponsor.rest.Sponsor;
 import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
 import pl.mobilization.conference2015.sponsor.rest.Sponsors;
+import pl.mobilization.conference2015.sponsor.MapSponsorsRepoToSponsorPrez;
 import rx.Observer;
 import rx.Scheduler;
 import rx.functions.Action1;
@@ -108,10 +109,13 @@ public class BackgroundProcessService extends Service {
     }
 
     private void takeSponsorListFromRepoAndSendToUI() {
+
+
         sponsorRepository.getSponsors()
                 .subscribeOn(internetSchedyler)
-                .observeOn(mainScheduler).subscribe(new UpdateSponsorsEventGenerator(getApplicationContext(), eventBus));
+                .observeOn(mainScheduler).map(new MapSponsorsRepoToSponsorPrez()).subscribe(new UpdateSponsorsEventGenerator(getApplicationContext(), eventBus));
     }
+
 
     private static class SaveSponsorsFromRest implements Action1<Sponsors> {
 
@@ -131,12 +135,10 @@ public class BackgroundProcessService extends Service {
 
         @NonNull
         private SponsorRepoModel convert(Sponsor s, SponsorViewModel.Level level) {
-            SponsorRepoModel model = new SponsorRepoModel();
-            model.level = level.ordinal();
-            model.descriptionHtml = s.description_html;
-            model.logo = s.logo_url;
-            model.name = s.name;
-            model.url = s.link;
+            SponsorRepoModel model = SponsorRepoModel.
+                    builder(s.name).level(level.ordinal()).
+                    description(s.description_html).
+                    logo(s.logo_url).url(s.link).build();
             return model;
         }
 

@@ -54,17 +54,11 @@ public class SponsorRepositoryOrmLite extends OrmLiteSqliteOpenHelper implements
     }
 
     @Override
-    public Observable<Sponsors> getSponsors() {
+    public Observable<List<SponsorRepoModel>> getSponsors() {
         try {
             List<SponsorRepoModel> sponsorsFromDB = getDao(SponsorRepoModel.class).queryForAll();
-            Sponsors s = new Sponsors();
-            for (SponsorRepoModel m : sponsorsFromDB) {
-                assignSponsorFromDB(s.diamond, m, SponsorViewModel.Level.DIAMOND);
-                assignSponsorFromDB(s.platinum, m, SponsorViewModel.Level.PLATINIUM);
-                assignSponsorFromDB(s.gold, m, SponsorViewModel.Level.GOLD);
-                assignSponsorFromDB(s.silver, m, SponsorViewModel.Level.SILVER);
-            }
-            return Observable.just(s);
+
+            return Observable.just(sponsorsFromDB);
         } catch (SQLException e) {
             e.printStackTrace();
             return Observable.empty();
@@ -84,18 +78,5 @@ public class SponsorRepositoryOrmLite extends OrmLiteSqliteOpenHelper implements
     }
 
 
-    private void assignSponsorFromDB(List<Sponsor> list, SponsorRepoModel m, SponsorViewModel.Level level) {
-        if (m.level == level.ordinal()) {
-            list.add(convert(m));
-        }
-    }
 
-    private Sponsor convert(SponsorRepoModel m) {
-        Sponsor s = new Sponsor();
-        s.name = m.name;
-        s.description_html = m.descriptionHtml;
-        s.link = m.url;
-        s.logo_url = m.logo;
-        return s;
-    }
 }
