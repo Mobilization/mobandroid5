@@ -34,23 +34,31 @@ public class SponsorRepositoryOrmLite extends OrmLiteSqliteOpenHelper implements
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             Log.i(SponsorRepositoryOrmLite.class.getName(), "onCreate");
-            TableUtils.createTable(connectionSource, SponsorRepoModel.class);
+            createDB(connectionSource);
         } catch (SQLException e) {
             Log.e(SponsorRepositoryOrmLite.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
         }
     }
 
+    void createDB(ConnectionSource connectionSource) throws SQLException {
+        TableUtils.createTable(connectionSource, SponsorRepoModel.class);
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             Log.i(SponsorRepositoryOrmLite.class.getName(), "onUpgrade");
-            TableUtils.dropTable(connectionSource, SponsorRepoModel.class, true);
+            deleteOldDatabase(connectionSource);
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             Log.e(SponsorRepositoryOrmLite.class.getName(), "Can't drop databases", e);
             throw new RuntimeException(e);
         }
+    }
+
+    void deleteOldDatabase(ConnectionSource connectionSource) throws SQLException {
+        TableUtils.dropTable(connectionSource, SponsorRepoModel.class, true);
     }
 
     @Override

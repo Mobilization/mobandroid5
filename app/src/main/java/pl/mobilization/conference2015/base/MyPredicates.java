@@ -3,6 +3,7 @@ package pl.mobilization.conference2015.base;
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 
 import static com.google.common.base.Predicates.compose;
 import static com.google.common.base.Predicates.notNull;
@@ -12,7 +13,7 @@ import static com.google.common.base.Predicates.notNull;
  */
 public class MyPredicates {
 
-    public static final Function<Object, Boolean> IS_NOT_EMPTY = Functions.forPredicate(new Predicate<Object>() {
+    public static final Predicate<Object> IS_NOT_EMPTY = new Predicate<Object>() {
         @Override
         public boolean apply(Object input) {
             if (input==null)
@@ -21,6 +22,6 @@ public class MyPredicates {
             }
             return !input.toString().isEmpty();
         }
-    });
-    public static Predicate<Object> notNullOrEmpty= compose(notNull(), MyPredicates.IS_NOT_EMPTY);
+    };
+    public static Predicate<Object> notNullOrEmpty= Predicates.and(notNull(),MyPredicates.IS_NOT_EMPTY);
 }

@@ -4,16 +4,24 @@ import android.test.suitebuilder.annotation.MediumTest;
 
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
+import com.j256.ormlite.support.ConnectionSource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import pl.mobilization.conference2015.BuildConfig;
 import pl.mobilization.conference2015.sponsor.SponsorRepoModel;
@@ -60,5 +68,31 @@ public class SponsorRepositoryOrmLiteTest {
         assertThat(firstSponsor.getLevel()).isEqualTo(SPONSOR_DIAMOUND_LEVEL);
         assertThat(firstSponsor.getLogo()).isEqualTo(SPONSOR_LOGO);
         assertThat(firstSponsor.getUrl()).isEqualTo(SPONSOR_URL);
+    }
+
+    @Test
+    public void shouldDeleteOldDataBaseWhenUpgrade() throws SQLException {
+        final AtomicInteger countCreateDB = new AtomicInteger(0);
+        final AtomicInteger countDeleteDB = new AtomicInteger(0);
+        //GIVEN a repo with modified real connection to DB
+        SponsorRepositoryOrmLite tested =
+                new SponsorRepositoryOrmLite(RuntimeEnvironment.application) {
+                    @Override
+                    void createDB(ConnectionSource connectionSource) throws SQLException {
+                        countCreateDB.incrementAndGet();
+                    }
+
+                    @Override
+                    void deleteOldDatabase(ConnectionSource connectionSource) throws SQLException {
+                        countDeleteDB.incrementAndGet();
+                    }
+                };
+        //WHEN testing  upgrade
+        tested.onUpgrade(null, null, 0, 1);
+
+        //THEN Repo should delege DB and then create DB again
+        assertThat(countDeleteDB.intValue()).isEqualTo(1);
+        assertThat(countCreateDB.intValue()).isEqualTo(1);
+
     }
 }
