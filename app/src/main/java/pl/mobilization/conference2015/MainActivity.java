@@ -101,6 +101,10 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
 
     }
 
+    public void setComponent(UserComponent userComponent) {
+        this.userComponent = userComponent;
+    }
+
     @Override
     public UserComponent getComponent() {
         return userComponent;

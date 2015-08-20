@@ -56,6 +56,9 @@ android {
     }
     productFlavors {
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
     play {
         track = 'beta'
         serviceAccountEmail = '1089833918323-itjk5euuvrqq0r3ndjonqn4h001p43u9@developer.gserviceaccount.com'

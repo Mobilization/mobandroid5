@@ -21,9 +21,11 @@ public abstract class ServicePresenter {
 
     @Inject
     EventBus eventBus;
+
     protected Context context;
 
     protected Messenger mService;
+
     protected ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -41,15 +43,13 @@ public abstract class ServicePresenter {
 
     protected abstract void initRequest();
 
-    public ServicePresenter(EventBus eventBus) {
-        this.eventBus = eventBus;
+    public ServicePresenter() {
         eventBus.register(this);
     }
 
     protected void onBindView(Context context) {
         this.context = context;
         context.bindService(new Intent(context, BackgroundProcessService.class), mConnection, Context.BIND_AUTO_CREATE);
-
     }
 
     public void onUnbindView() {

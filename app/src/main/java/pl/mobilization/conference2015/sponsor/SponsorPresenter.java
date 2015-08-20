@@ -28,24 +28,11 @@ import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.SILV
  */
 @Slf4j
 public class SponsorPresenter extends ServicePresenter {
-
-
-    @Inject
-    SponsorRestService sponsorService;
-
-    @Inject
-    SponsorRepository sponsorRepository;
-
-
+    
     private Context context;
+
     private SponsorsView view;
 
-    public SponsorPresenter(SponsorRepository sponsorRepo, SponsorRestService restService, EventBus eventBus) {
-        super(eventBus);
-        sponsorService = restService;
-        sponsorRepository = sponsorRepo;
-
-    }
 
     public void onBindView(Context context, SponsorsView view) {
         super.onBindView(context);
@@ -60,7 +47,6 @@ public class SponsorPresenter extends ServicePresenter {
 
     public void onEvent(OnSponsorClickEvent event) {
         view.showSponsorDialog(event);
-
     }
 
     private SponsorsViewModel convert(Sponsors sponsors) {
@@ -82,17 +68,19 @@ public class SponsorPresenter extends ServicePresenter {
     }
 
 
-    public void requestSponsors() {
+    public int requestSponsors() {
         Message msg = Message.obtain(null, BackgroundProcessService.UPDATE_SPONSORS, 0, 0);
         try {
             if (mService != null) {
                 mService.send(msg);
+                return msg.what;
             } else {
                 log.debug("Service is null");
             }
         } catch (RemoteException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Problem with sending message to service", e);
         }
+        return 0;
     }
 
     @Override

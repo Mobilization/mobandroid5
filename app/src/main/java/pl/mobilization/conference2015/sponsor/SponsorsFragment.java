@@ -48,13 +48,19 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
         super.onPause();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.getComponent(UserComponent.class).inject(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         RecyclerView rv = (RecyclerView) inflater.inflate(
                 R.layout.fragment_sponsors_list, container, false);
         setupRecyclerView(rv);
-        this.getComponent(UserComponent.class).inject(this);
+
         presenter.onBindView(getActivity(), this);
         presenter.requestSponsors();
         return rv;
