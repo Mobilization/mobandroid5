@@ -33,6 +33,10 @@ public class SponsorPresenter extends ServicePresenter {
 
     private SponsorsView view;
 
+    public SponsorPresenter(EventBus eventBus) {
+        super(eventBus);
+    }
+
 
     public void onBindView(Context context, SponsorsView view) {
         super.onBindView(context);

@@ -43,7 +43,8 @@ public abstract class ServicePresenter {
 
     protected abstract void initRequest();
 
-    public ServicePresenter() {
+    public ServicePresenter(EventBus eventBus) {
+        this.eventBus = eventBus;
         eventBus.register(this);
     }
 

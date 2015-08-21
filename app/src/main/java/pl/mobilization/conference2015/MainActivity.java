@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
         setContentView(R.layout.activity_main);
         log.info("MainActivity ");
 
+
         this.initializeInjector();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

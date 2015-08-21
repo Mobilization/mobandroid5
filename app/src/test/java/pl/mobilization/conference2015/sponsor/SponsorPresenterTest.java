@@ -49,7 +49,8 @@ public class SponsorPresenterTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         //GIVEN a sponsor presenter..
-        testedSp = new SponsorPresenter();
+        testedSp = new SponsorPresenter(eventBus);
+
 
     }
 

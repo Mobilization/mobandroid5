@@ -93,6 +93,7 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
                 holder.mImageView.setVisibility(View.GONE);
             }else{
                 holder.mTextView.setTextSize(12.0f);
+
                 holder.mImageView.setVisibility(View.VISIBLE);
                 log.debug("logouri " + sponsorView.getLogoUrl());
                 Glide.with(holder.mImageView.getContext())
