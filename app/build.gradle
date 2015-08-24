@@ -113,7 +113,7 @@ dependencies {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
     testCompile 'org.mockito:mockito-all:1.9.5'
-    //testCompile 'org.robospock:robospock:0.6.3-beta-1'
+//    testCompile 'org.robospock:robospock:0.6.0-rc'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2') {
         exclude group: 'com.android.support', module: 'support-annotations'
