@@ -2,7 +2,6 @@ package pl.mobilization.conference2015.sponsor;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Message;
 
 import org.junit.After;
 import org.junit.Before;
@@ -10,16 +9,13 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import dagger.Component;
-import dagger.Module;
 import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
-import pl.mobilization.conference2015.BackgroundProcessService;
-import pl.mobilization.conference2015.DaggerActivityComponent;
-import pl.mobilization.conference2015.sponsor.event.SponsorUpdatedEvent;
 import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
 import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
-import pl.mobilization.conference2015.sponsor.rest.Sponsors;
+import pl.mobilization.conference2015.sponsor.rest.SponsorListRestModel;
+import pl.mobilization.conference2015.sponsor.view.SponsorsView;
+import pl.mobilization.conference2015.sponsor.view.SponsorsListViewModel;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -28,7 +24,7 @@ import static org.mockito.Mockito.*;
  * Created by msaramak on 19.08.15.
  */
 @Slf4j
-public class SponsorPresenterTest {
+public class SponsorRestModelPresenterTest {
 
     @Mock
     SponsorRepository sponsorRepository;
@@ -88,9 +84,9 @@ public class SponsorPresenterTest {
         //GIVEN a tested sponsor presenter with binded view
         testedSp.onBindView(context, view);
         //WHEN sponsors list is updated
-        SponsorUpdatedEvent event = new SponsorUpdatedEvent(new Sponsors());
+        SponsorUpdatedEvent event = new SponsorUpdatedEvent(new SponsorListRestModel());
         testedSp.onEvent(event);
         //THEN
-        verify(view).updateSponsors(any(SponsorsViewModel.class));
+        verify(view).updateSponsors(any(SponsorsListViewModel.class));
     }
 }

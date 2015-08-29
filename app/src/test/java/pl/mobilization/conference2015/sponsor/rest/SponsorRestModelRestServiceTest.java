@@ -18,15 +18,15 @@ import static org.fest.assertions.api.Assertions.assertThat;
  */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class SponsorRestServiceTest {
+public class SponsorRestModelRestServiceTest {
 
 
     @Test
     @LargeTest
     public void downloadSponsorsTest(){
         SponsorRestService service = new SponsorRestServiceRetrofit();
-        Observable<Sponsors> osponsors = service.getSponsors();
-        Sponsors sponsors = osponsors.toBlocking().first();
+        Observable<SponsorListRestModel> osponsors = service.getSponsors();
+        SponsorListRestModel sponsors = osponsors.toBlocking().first();
         assertThat(sponsors).isNotNull();
         assertThat(sponsors.platinum).isNotEmpty();
         assertThat(sponsors.platinum.get(0).name).isNotEmpty();

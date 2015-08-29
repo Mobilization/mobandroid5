@@ -9,5 +9,5 @@ import rx.Observable;
 public interface SponsorRestService {
 
     @GET("/sponsors.json")
-    public Observable<Sponsors> getSponsors();
+    public Observable<SponsorListRestModel> getSponsors();
 }

@@ -40,10 +40,9 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import lombok.extern.slf4j.Slf4j;
-import pl.mobilization.conference2015.sponsor.SponsorsFragment;
+import pl.mobilization.conference2015.sponsor.view.SponsorsFragment;
 
 @Slf4j
 public class MainActivity extends BaseActivity implements HasComponent<UserComponent> {
@@ -132,7 +131,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new SponsorsFragment(), "Sponsors");
+        adapter.addFragment(new SponsorsFragment(), "SponsorListRestModel");
         adapter.addFragment(new AgendaFragment(), "Agenda");
         adapter.addFragment(new SpeakersFragment(), "Speakers");
         viewPager.setAdapter(adapter);

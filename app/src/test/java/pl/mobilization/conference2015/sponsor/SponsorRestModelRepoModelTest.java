@@ -6,6 +6,7 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import pl.mobilization.conference2015.BuildConfig;
+import pl.mobilization.conference2015.sponsor.repository.SponsorRepoModel;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.fail;
@@ -15,7 +16,7 @@ import static org.fest.assertions.api.Assertions.fail;
  */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class SponsorRepoModelTest {
+public class SponsorRestModelRepoModelTest {
 
     public static final String SPONSOR_NAME = "name";
     public static final String SPONSOR_URL = "http://wwww.mobilca.com";

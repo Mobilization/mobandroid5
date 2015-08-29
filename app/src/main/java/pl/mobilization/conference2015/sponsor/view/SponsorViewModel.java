@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015.sponsor;
+package pl.mobilization.conference2015.sponsor.view;
 
 import android.net.Uri;
 
@@ -6,7 +6,7 @@ import com.google.common.base.Optional;
 
 import lombok.Getter;
 import lombok.experimental.Builder;
-import pl.mobilization.conference2015.sponsor.rest.Sponsor;
+import pl.mobilization.conference2015.sponsor.rest.SponsorRestModel;
 import pl.mobilization.conference2015.sponsor.rest.SponsorRestServiceRetrofit;
 
 /**
@@ -26,16 +26,16 @@ public class SponsorViewModel {
         return false;
     }
 
-    public static SponsorViewModel convert(Sponsor sponsor, Level level) {
+    public static SponsorViewModel convert(SponsorRestModel sponsorRestModel, Level level) {
         SponsorViewModelBuilder builder = SponsorViewModel.builder()
-                .displayName(sponsor.name)
-                .description(Optional.fromNullable(sponsor.description_html));
-        if (sponsor.link == null) {
+                .displayName(sponsorRestModel.name)
+                .description(Optional.fromNullable(sponsorRestModel.description_html));
+        if (sponsorRestModel.link == null) {
             builder.link(Optional.<Uri>absent());
         } else {
-            builder.link(Optional.fromNullable(Uri.parse(sponsor.link)));
+            builder.link(Optional.fromNullable(Uri.parse(sponsorRestModel.link)));
         }
-        builder.logoUrl(Optional.fromNullable(Uri.parse(SponsorRestServiceRetrofit.CONFERENCE_MAIN_URL + sponsor.logo_url)))
+        builder.logoUrl(Optional.fromNullable(Uri.parse(SponsorRestServiceRetrofit.CONFERENCE_MAIN_URL + sponsorRestModel.logo_url)))
                 .level(level);
         return builder.build();
     }

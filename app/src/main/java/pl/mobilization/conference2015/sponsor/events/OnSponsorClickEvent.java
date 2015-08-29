@@ -1,6 +1,8 @@
-package pl.mobilization.conference2015.sponsor;
+package pl.mobilization.conference2015.sponsor.events;
 
 import android.net.Uri;
+
+import pl.mobilization.conference2015.sponsor.view.SponsorViewModel;
 
 /**
  * Created by mario on 02.08.15.

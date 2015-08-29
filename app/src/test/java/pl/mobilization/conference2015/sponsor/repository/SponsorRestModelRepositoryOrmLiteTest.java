@@ -2,18 +2,11 @@ package pl.mobilization.conference2015.sponsor.repository;
 
 import android.test.suitebuilder.annotation.MediumTest;
 
-import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.j256.ormlite.support.ConnectionSource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
@@ -24,7 +17,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import pl.mobilization.conference2015.BuildConfig;
-import pl.mobilization.conference2015.sponsor.SponsorRepoModel;
 import rx.Observable;
 
 import static org.fest.assertions.api.Assertions.assertThat;
@@ -34,7 +26,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
  */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class SponsorRepositoryOrmLiteTest {
+public class SponsorRestModelRepositoryOrmLiteTest {
 
     public static final String SPONSOR_NAME = "sponsorName";
     public static final String SPONSOR_DESCRIPTION_HTML = "<p>description html</p>";

@@ -45,8 +45,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public SponsorPresenter provideSponsorPresenter(EventBus eventBus) {
-        return new SponsorPresenter(eventBus);
+    public SponsorPresenter provideSponsorPresenter(SponsorRepository repository, EventBus eventBus) {
+        return new SponsorPresenter(repository, eventBus);
     }
 
 

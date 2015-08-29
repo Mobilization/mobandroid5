@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015.sponsor;
+package pl.mobilization.conference2015.sponsor.view;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -24,6 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 import pl.mobilization.conference2015.BaseFragment;
 import pl.mobilization.conference2015.R;
 import pl.mobilization.conference2015.UserComponent;
+import pl.mobilization.conference2015.sponsor.SponsorPresenter;
+import pl.mobilization.conference2015.sponsor.events.OnSponsorClickEvent;
 import pl.mobilization.conference2015.ui.component.LogoTitleDialog;
 
 /**
@@ -70,9 +72,9 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
             extends RecyclerView.Adapter<SponsorRecyclerViewAdapter.ViewHolder> {
 
         public static final Uri EMPTY_SPONSOR_LOGO = Uri.parse("http://2015.mobilization.pl/images/partners/juglodz.png");
-        private SponsorsViewModel model = new SponsorsViewModel();
+        private SponsorsListViewModel model = new SponsorsListViewModel();
 
-        public void updateModel(SponsorsViewModel model) {
+        public void updateModel(SponsorsListViewModel model) {
             this.model = model;
             notifyDataSetChanged();
         }
@@ -171,7 +173,7 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
     }
 
     @Override
-    public void updateSponsors(SponsorsViewModel model) {
+    public void updateSponsors(SponsorsListViewModel model) {
         adapter.updateModel(model);
     }
 

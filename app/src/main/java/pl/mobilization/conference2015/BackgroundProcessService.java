@@ -18,22 +18,22 @@ import javax.inject.Named;
 
 import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
-import pl.mobilization.conference2015.sponsor.SponsorRepoModel;
-import pl.mobilization.conference2015.sponsor.SponsorViewModel;
-import pl.mobilization.conference2015.sponsor.event.SponsorUpdatedEvent;
-import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
-import pl.mobilization.conference2015.sponsor.rest.Sponsor;
-import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
-import pl.mobilization.conference2015.sponsor.rest.Sponsors;
 import pl.mobilization.conference2015.sponsor.MapSponsorsRepoToSponsorPrez;
+import pl.mobilization.conference2015.sponsor.events.SponsorUpdatedEvent;
+import pl.mobilization.conference2015.sponsor.repository.SponsorRepoModel;
+import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
+import pl.mobilization.conference2015.sponsor.rest.SponsorListRestModel;
+import pl.mobilization.conference2015.sponsor.rest.SponsorRestModel;
+import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
+import pl.mobilization.conference2015.sponsor.view.SponsorViewModel;
 import rx.Observer;
 import rx.Scheduler;
 import rx.functions.Action1;
 
-import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.DIAMOND;
-import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.GOLD;
-import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.PLATINIUM;
-import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.SILVER;
+import static pl.mobilization.conference2015.sponsor.view.SponsorViewModel.Level.DIAMOND;
+import static pl.mobilization.conference2015.sponsor.view.SponsorViewModel.Level.GOLD;
+import static pl.mobilization.conference2015.sponsor.view.SponsorViewModel.Level.PLATINIUM;
+import static pl.mobilization.conference2015.sponsor.view.SponsorViewModel.Level.SILVER;
 
 @Slf4j
 public class BackgroundProcessService extends Service {
@@ -117,7 +117,7 @@ public class BackgroundProcessService extends Service {
     }
 
 
-    private static class SaveSponsorsFromRest implements Action1<Sponsors> {
+    private static class SaveSponsorsFromRest implements Action1<SponsorListRestModel> {
 
 
         private SponsorRepository sponsorRepository;
@@ -126,15 +126,15 @@ public class BackgroundProcessService extends Service {
             this.sponsorRepository = sponsorRepository;
         }
 
-        private void addSponsorsToRepo(List<Sponsor> list, List<SponsorRepoModel> models, SponsorViewModel.Level level) {
-            for (Sponsor s : list) {
+        private void addSponsorsToRepo(List<SponsorRestModel> list, List<SponsorRepoModel> models, SponsorViewModel.Level level) {
+            for (SponsorRestModel s : list) {
                 SponsorRepoModel model = convert(s, level);
                 models.add(model);
             }
         }
 
         @NonNull
-        private SponsorRepoModel convert(Sponsor s, SponsorViewModel.Level level) {
+        private SponsorRepoModel convert(SponsorRestModel s, SponsorViewModel.Level level) {
             SponsorRepoModel model = SponsorRepoModel.
                     builder(s.name).level(level.ordinal()).
                     description(s.description_html).
@@ -143,7 +143,7 @@ public class BackgroundProcessService extends Service {
         }
 
         @Override
-        public void call(Sponsors sponsors) {
+        public void call(SponsorListRestModel sponsors) {
             List<SponsorRepoModel> models = new ArrayList<SponsorRepoModel>();
             addSponsorsToRepo(sponsors.diamond, models, DIAMOND);
             addSponsorsToRepo(sponsors.platinum, models, PLATINIUM);
@@ -154,7 +154,7 @@ public class BackgroundProcessService extends Service {
     }
 
 
-    private static class UpdateSponsorsEventGenerator implements Observer<Sponsors> {
+    private static class UpdateSponsorsEventGenerator implements Observer<SponsorListRestModel> {
         private Context context;
         private EventBus eventBus;
 
@@ -174,8 +174,8 @@ public class BackgroundProcessService extends Service {
         }
 
         @Override
-        public void onNext(Sponsors sponsors) {
-            eventBus.post(new SponsorUpdatedEvent(sponsors));
+        public void onNext(SponsorListRestModel sponsors) {
+            eventBus.post(new SponsorUpdatedEvent());
         }
     }
 

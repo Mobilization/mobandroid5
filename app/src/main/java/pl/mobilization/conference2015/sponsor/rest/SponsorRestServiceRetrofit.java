@@ -21,7 +21,7 @@ public class SponsorRestServiceRetrofit implements SponsorRestService {
 
 
     @Override
-    public Observable<Sponsors> getSponsors() {
+    public Observable<SponsorListRestModel> getSponsors() {
         return service.getSponsors();
     }
 }

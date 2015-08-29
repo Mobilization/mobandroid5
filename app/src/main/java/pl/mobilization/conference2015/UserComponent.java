@@ -1,7 +1,7 @@
 package pl.mobilization.conference2015;
 
 import dagger.Component;
-import pl.mobilization.conference2015.sponsor.SponsorsFragment;
+import pl.mobilization.conference2015.sponsor.view.SponsorsFragment;
 
 /**
  * Created by msaramak on 30.07.15.

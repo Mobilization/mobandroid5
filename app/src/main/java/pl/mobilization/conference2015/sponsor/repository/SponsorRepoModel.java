@@ -1,20 +1,13 @@
-package pl.mobilization.conference2015.sponsor;
+package pl.mobilization.conference2015.sponsor.repository;
 
-import android.net.Uri;
-
-import com.google.common.base.Predicate;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.experimental.Builder;
-import pl.mobilization.conference2015.base.MyPredicates;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Predicates.*;
-import static pl.mobilization.conference2015.base.MyPredicates.*;
+import static pl.mobilization.conference2015.base.MyPredicates.notNullOrEmpty;
 
 /**
  * Created by msaramak on 29.07.15.

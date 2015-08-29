@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015.sponsor;
+package pl.mobilization.conference2015.sponsor.view;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 /**
  * Created by msaramak on 29.07.15.
  */
-public class SponsorsViewModel {
+public class SponsorsListViewModel {
 
     public List<SponsorViewModel> sponsors;
 
-    public SponsorsViewModel() {
+    public SponsorsListViewModel() {
         this.sponsors = new ArrayList<>();
     }
 

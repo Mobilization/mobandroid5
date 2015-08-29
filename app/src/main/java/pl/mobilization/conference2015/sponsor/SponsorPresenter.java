@@ -12,16 +12,19 @@ import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
 import pl.mobilization.conference2015.BackgroundProcessService;
 import pl.mobilization.conference2015.ServicePresenter;
-import pl.mobilization.conference2015.sponsor.event.SponsorUpdatedEvent;
+import pl.mobilization.conference2015.sponsor.events.OnSponsorClickEvent;
+import pl.mobilization.conference2015.sponsor.events.SponsorUpdatedEvent;
 import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
-import pl.mobilization.conference2015.sponsor.rest.Sponsor;
-import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
-import pl.mobilization.conference2015.sponsor.rest.Sponsors;
+import pl.mobilization.conference2015.sponsor.rest.SponsorListRestModel;
+import pl.mobilization.conference2015.sponsor.rest.SponsorRestModel;
+import pl.mobilization.conference2015.sponsor.view.SponsorViewModel;
+import pl.mobilization.conference2015.sponsor.view.SponsorsListViewModel;
+import pl.mobilization.conference2015.sponsor.view.SponsorsView;
 
-import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.DIAMOND;
-import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.GOLD;
-import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.PLATINIUM;
-import static pl.mobilization.conference2015.sponsor.SponsorViewModel.Level.SILVER;
+import static pl.mobilization.conference2015.sponsor.view.SponsorViewModel.Level.DIAMOND;
+import static pl.mobilization.conference2015.sponsor.view.SponsorViewModel.Level.GOLD;
+import static pl.mobilization.conference2015.sponsor.view.SponsorViewModel.Level.PLATINIUM;
+import static pl.mobilization.conference2015.sponsor.view.SponsorViewModel.Level.SILVER;
 
 /**
  * Created by msaramak on 29.07.15.
@@ -33,8 +36,11 @@ public class SponsorPresenter extends ServicePresenter {
 
     private SponsorsView view;
 
-    public SponsorPresenter(EventBus eventBus) {
+    @Inject SponsorRepository sponsorRepository;
+
+    public SponsorPresenter(SponsorRepository repository, EventBus eventBus) {
         super(eventBus);
+        sponsorRepository = repository;
     }
 
 
@@ -44,17 +50,20 @@ public class SponsorPresenter extends ServicePresenter {
     }
 
     public void onEvent(SponsorUpdatedEvent event) {
-        Sponsors sponsors = event.getSponsors();
-        SponsorsViewModel model = convert(sponsors);
-        view.updateSponsors(model);
+        sponsorRepository.getSponsors().map(new MapSponsorsRepoToSponsorPrez()).map(sponsors -> {
+            SponsorsListViewModel model = convert(sponsors);
+            return model;
+        }).subscribe(sponsorsViewModel -> {
+            view.updateSponsors(sponsorsViewModel);
+        });
     }
 
     public void onEvent(OnSponsorClickEvent event) {
         view.showSponsorDialog(event);
     }
 
-    private SponsorsViewModel convert(Sponsors sponsors) {
-        SponsorsViewModel model = new SponsorsViewModel();
+    private SponsorsListViewModel convert(SponsorListRestModel sponsors) {
+        SponsorsListViewModel model = new SponsorsListViewModel();
         addSponsorsFromLevel(sponsors.diamond, model, DIAMOND);
         addSponsorsFromLevel(sponsors.platinum, model, PLATINIUM);
         addSponsorsFromLevel(sponsors.gold, model, GOLD);
@@ -62,12 +71,12 @@ public class SponsorPresenter extends ServicePresenter {
         return model;
     }
 
-    private void addSponsorsFromLevel(List<Sponsor> sponsors, SponsorsViewModel model, SponsorViewModel.Level level) {
-        if (!sponsors.isEmpty()) {
+    private void addSponsorsFromLevel(List<SponsorRestModel> sponsorRestModels, SponsorsListViewModel model, SponsorViewModel.Level level) {
+        if (!sponsorRestModels.isEmpty()) {
             model.addSponsor(SponsorViewModel.title(level));
         }
-        for (Sponsor sponsor : sponsors) {
-            model.addSponsor(SponsorViewModel.convert(sponsor, level));
+        for (SponsorRestModel sponsorRestModel : sponsorRestModels) {
+            model.addSponsor(SponsorViewModel.convert(sponsorRestModel, level));
         }
     }
 

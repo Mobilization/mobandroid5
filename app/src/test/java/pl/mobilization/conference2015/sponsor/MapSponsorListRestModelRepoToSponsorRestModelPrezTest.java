@@ -2,8 +2,6 @@ package pl.mobilization.conference2015.sponsor;
 
 import com.google.common.collect.Iterables;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -13,8 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.mobilization.conference2015.BuildConfig;
-import pl.mobilization.conference2015.sponsor.rest.Sponsor;
-import pl.mobilization.conference2015.sponsor.rest.Sponsors;
+import pl.mobilization.conference2015.sponsor.repository.SponsorRepoModel;
+import pl.mobilization.conference2015.sponsor.rest.SponsorRestModel;
+import pl.mobilization.conference2015.sponsor.rest.SponsorListRestModel;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -23,7 +22,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
  */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class)
-public class MapSponsorsRepoToSponsorPrezTest  {
+public class MapSponsorListRestModelRepoToSponsorRestModelPrezTest {
 
     public static final String DIAMOUND_TEST_NAME = "diamound";
     public static final String DIAMOUND_TEST_DESCRIPTION = "diamound description";
@@ -36,7 +35,7 @@ public class MapSponsorsRepoToSponsorPrezTest  {
         MapSponsorsRepoToSponsorPrez tested = new MapSponsorsRepoToSponsorPrez();
         List<SponsorRepoModel> sponsorsRepo = new ArrayList<>();
         //WHEN convert sponsors
-        Sponsors result = tested.call(sponsorsRepo);
+        SponsorListRestModel result = tested.call(sponsorsRepo);
         //THEN sponsors should be converted
         assertThat(result.diamond).isEmpty();
         assertThat(result.platinum).isEmpty();
@@ -51,10 +50,10 @@ public class MapSponsorsRepoToSponsorPrezTest  {
         List<SponsorRepoModel> sponsorsRepo = new ArrayList<>();
         sponsorsRepo.add(createTestDiamound());
         //WHEN convert sponsors
-        Sponsors result = tested.call(sponsorsRepo);
+        SponsorListRestModel result = tested.call(sponsorsRepo);
         //THEN sponsors should be converted
         assertThat(result.diamond).isNotEmpty();
-        Sponsor first = Iterables.getFirst(result.diamond, null);
+        SponsorRestModel first = Iterables.getFirst(result.diamond, null);
         assertThat(first.name).isEqualTo(DIAMOUND_TEST_NAME);
         assertThat(first.logo_url).isEqualTo(DIAMOUND_TEST_LOGO_URL);
         assertThat(first.description_html).isEqualTo(DIAMOUND_TEST_DESCRIPTION);

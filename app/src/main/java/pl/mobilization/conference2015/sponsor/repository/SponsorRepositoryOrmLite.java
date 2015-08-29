@@ -11,10 +11,6 @@ import com.j256.ormlite.table.TableUtils;
 import java.sql.SQLException;
 import java.util.List;
 
-import pl.mobilization.conference2015.sponsor.SponsorRepoModel;
-import pl.mobilization.conference2015.sponsor.SponsorViewModel;
-import pl.mobilization.conference2015.sponsor.rest.Sponsor;
-import pl.mobilization.conference2015.sponsor.rest.Sponsors;
 import rx.Observable;
 
 /**

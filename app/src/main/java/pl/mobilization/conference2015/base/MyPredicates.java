@@ -1,11 +1,8 @@
 package pl.mobilization.conference2015.base;
 
-import com.google.common.base.Function;
-import com.google.common.base.Functions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
-import static com.google.common.base.Predicates.compose;
 import static com.google.common.base.Predicates.notNull;
 
 /**

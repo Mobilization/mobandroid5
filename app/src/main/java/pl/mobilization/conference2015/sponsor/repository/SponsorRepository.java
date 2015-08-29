@@ -3,8 +3,6 @@ package pl.mobilization.conference2015.sponsor.repository;
 
 import java.util.List;
 
-import pl.mobilization.conference2015.sponsor.SponsorRepoModel;
-import pl.mobilization.conference2015.sponsor.rest.Sponsors;
 import rx.Observable;
 
 /**
