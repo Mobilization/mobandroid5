@@ -131,7 +131,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new SponsorsFragment(), "SponsorListRestModel");
+        adapter.addFragment(new SponsorsFragment(), "Sponsors");
         adapter.addFragment(new AgendaFragment(), "Agenda");
         adapter.addFragment(new SpeakersFragment(), "Speakers");
         viewPager.setAdapter(adapter);
