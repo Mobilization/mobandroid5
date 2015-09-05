@@ -9,15 +9,20 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
 import pl.mobilization.conference2015.sponsor.events.OnSponsorClickEvent;
 import pl.mobilization.conference2015.sponsor.events.SponsorUpdatedEvent;
+import pl.mobilization.conference2015.sponsor.repository.SponsorRepoModel;
 import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
 import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
 import pl.mobilization.conference2015.sponsor.rest.SponsorListRestModel;
 import pl.mobilization.conference2015.sponsor.view.SponsorsView;
 import pl.mobilization.conference2015.sponsor.view.SponsorsListViewModel;
+import rx.Observable;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -48,6 +53,8 @@ public class SponsorRestModelPresenterTest {
         MockitoAnnotations.initMocks(this);
         //GIVEN a sponsor presenter..
         testedSp = new SponsorPresenter(sponsorRepository, eventBus);
+        List<SponsorRepoModel> l = new ArrayList<>();
+        when(sponsorRepository.getSponsors()).thenReturn(Observable.<List<SponsorRepoModel>>just(l));
 
 
     }

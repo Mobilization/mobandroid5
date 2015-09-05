@@ -11,10 +11,12 @@ buildscript {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         classpath 'com.github.triplet.gradle:play-publisher:1.1.2'
         classpath 'me.tatarka:gradle-retrolambda:3.2.0'
+        classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
         classpath 'org.codehaus.groovy:gradle-groovy-android-plugin:0.3.6'
         classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
     }
-
+    // Exclude the version that the android plugin depends on.
+    configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }
 
 allprojects {
