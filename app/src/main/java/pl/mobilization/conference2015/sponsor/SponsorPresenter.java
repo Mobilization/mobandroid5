@@ -10,8 +10,8 @@ import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
-import pl.mobilization.conference2015.BackgroundProcessService;
-import pl.mobilization.conference2015.ServicePresenter;
+import pl.mobilization.conference2015.android.BackgroundProcessService;
+import pl.mobilization.conference2015.android.ServicePresenter;
 import pl.mobilization.conference2015.sponsor.events.OnSponsorClickEvent;
 import pl.mobilization.conference2015.sponsor.events.SponsorUpdatedEvent;
 import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;

@@ -1,9 +1,13 @@
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.android;
 
 import android.app.Application;
 import android.os.StrictMode;
 
 import com.crashlytics.android.Crashlytics;
+
+import pl.mobilization.conference2015.BuildConfig;
+import pl.mobilization.conference2015.inject.ApplicationComponent;
+import pl.mobilization.conference2015.inject.ApplicationModule;
 
 /**
  * Created by msaramak on 29.07.15.
@@ -31,7 +35,7 @@ public class AndroidApplication extends Application {
     }
 
     private void initializeInjector() {
-        this.applicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+//        this.applicationComponent = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
 
     }
 }

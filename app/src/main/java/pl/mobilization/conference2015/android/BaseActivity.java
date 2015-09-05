@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.android;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,16 +18,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getApplicationComponent().inject(this);
-    }
 
-    protected ApplicationComponent getApplicationComponent() {
-        return ((AndroidApplication) getApplication()).getApplicationComponent();
     }
-
-    protected ActivityModule getActivityModule() {
-        return new ActivityModule(this);
-    }
-
 
 }

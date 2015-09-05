@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.android;
 
 import android.app.Service;
 import android.content.Context;
@@ -18,6 +18,7 @@ import javax.inject.Named;
 
 import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
+import pl.mobilization.conference2015.android.AndroidApplication;
 import pl.mobilization.conference2015.sponsor.MapSponsorsRepoToSponsorPrez;
 import pl.mobilization.conference2015.sponsor.events.SponsorUpdatedEvent;
 import pl.mobilization.conference2015.sponsor.repository.SponsorRepoModel;

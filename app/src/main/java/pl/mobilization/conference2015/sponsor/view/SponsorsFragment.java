@@ -21,12 +21,11 @@ import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
-import pl.mobilization.conference2015.BaseFragment;
+import pl.mobilization.conference2015.android.BaseFragment;
 import pl.mobilization.conference2015.R;
-import pl.mobilization.conference2015.UserComponent;
 import pl.mobilization.conference2015.sponsor.SponsorPresenter;
 import pl.mobilization.conference2015.sponsor.events.OnSponsorClickEvent;
-import pl.mobilization.conference2015.ui.component.LogoTitleDialog;
+import pl.mobilization.conference2015.android.ui.component.LogoTitleDialog;
 
 /**
  * Created by msaramak on 29.07.15.
@@ -53,7 +52,7 @@ public class SponsorsFragment extends BaseFragment implements SponsorsView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getComponent(UserComponent.class).inject(this);
+
     }
 
     @Nullable

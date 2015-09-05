@@ -7,7 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import pl.mobilization.conference2015.MainActivity;
+import pl.mobilization.conference2015.android.MainActivity;
 import test.android.utils.DisableAnimationsRule;
 
 import static android.support.test.espresso.Espresso.onView;

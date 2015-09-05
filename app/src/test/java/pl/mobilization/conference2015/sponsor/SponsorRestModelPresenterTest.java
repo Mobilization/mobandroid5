@@ -11,6 +11,8 @@ import org.mockito.MockitoAnnotations;
 
 import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
+import pl.mobilization.conference2015.sponsor.events.OnSponsorClickEvent;
+import pl.mobilization.conference2015.sponsor.events.SponsorUpdatedEvent;
 import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
 import pl.mobilization.conference2015.sponsor.rest.SponsorRestService;
 import pl.mobilization.conference2015.sponsor.rest.SponsorListRestModel;
@@ -26,8 +28,6 @@ import static org.mockito.Mockito.*;
 @Slf4j
 public class SponsorRestModelPresenterTest {
 
-    @Mock
-    SponsorRepository sponsorRepository;
 
     @Mock
     SponsorRestService sponsorRestService;
@@ -38,6 +38,8 @@ public class SponsorRestModelPresenterTest {
     SponsorsView view;
 
     @Mock
+    SponsorRepository sponsorRepository;
+    @Mock
     Context context;
     private SponsorPresenter testedSp;
 
@@ -45,7 +47,7 @@ public class SponsorRestModelPresenterTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         //GIVEN a sponsor presenter..
-        testedSp = new SponsorPresenter(eventBus);
+        testedSp = new SponsorPresenter(sponsorRepository, eventBus);
 
 
     }
@@ -84,7 +86,7 @@ public class SponsorRestModelPresenterTest {
         //GIVEN a tested sponsor presenter with binded view
         testedSp.onBindView(context, view);
         //WHEN sponsors list is updated
-        SponsorUpdatedEvent event = new SponsorUpdatedEvent(new SponsorListRestModel());
+        SponsorUpdatedEvent event = new SponsorUpdatedEvent();
         testedSp.onEvent(event);
         //THEN
         verify(view).updateSponsors(any(SponsorsListViewModel.class));

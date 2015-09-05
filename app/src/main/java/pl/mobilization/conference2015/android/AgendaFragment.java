@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.android;
 
 import android.support.v4.app.Fragment;
 

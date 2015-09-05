@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.android;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +23,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.ImageView;
+
+import pl.mobilization.conference2015.R;
 
 public class CheeseDetailActivity extends AppCompatActivity {
 

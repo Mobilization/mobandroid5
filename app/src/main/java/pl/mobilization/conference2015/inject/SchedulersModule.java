@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.inject;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

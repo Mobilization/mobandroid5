@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.android;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -42,13 +42,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
+import pl.mobilization.conference2015.R;
 import pl.mobilization.conference2015.sponsor.view.SponsorsFragment;
 
 @Slf4j
-public class MainActivity extends BaseActivity implements HasComponent<UserComponent> {
+public class MainActivity extends BaseActivity  {
 
     private DrawerLayout mDrawerLayout;
-    private UserComponent userComponent;
 
 
     @Override
@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
         log.info("MainActivity ");
 
 
-        this.initializeInjector();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -92,23 +92,6 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
 
     }
 
-    private void initializeInjector() {
-        this.userComponent = DaggerUserComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .activityModule(getActivityModule())
-                .userModule(new UserModule())
-                .build();
-
-    }
-
-    public void setComponent(UserComponent userComponent) {
-        this.userComponent = userComponent;
-    }
-
-    @Override
-    public UserComponent getComponent() {
-        return userComponent;
-    }
 
 
     @Override
@@ -131,7 +114,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new SponsorsFragment(), "SponsorListRestModel");
+        adapter.addFragment(new SponsorsFragment(), "Sponsors");
         adapter.addFragment(new AgendaFragment(), "Agenda");
         adapter.addFragment(new SpeakersFragment(), "Speakers");
         viewPager.setAdapter(adapter);

@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.android;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
