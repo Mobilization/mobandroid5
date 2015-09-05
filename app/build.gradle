@@ -115,7 +115,8 @@ dependencies {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
     testCompile 'org.mockito:mockito-all:1.9.5'
-    testCompile 'org.robospock:robospock:0.7.3-rc'
+//    testCompile 'org.robospock:robospock:0.7.3-rc'
+    testCompile fileTree(dir: 'libs', include: '*.jar')
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2') {
         exclude group: 'com.android.support', module: 'support-annotations'
