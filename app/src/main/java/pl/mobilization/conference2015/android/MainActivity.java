@@ -46,17 +46,9 @@ import pl.mobilization.conference2015.R;
 import pl.mobilization.conference2015.sponsor.view.SponsorsFragment;
 
 @Slf4j
-<<<<<<< HEAD:app/src/main/java/pl/mobilization/conference2015/MainActivity.java
 public class MainActivity extends BaseActivity {
 
     private DrawerLayout mDrawerLayout;
-
-=======
-public class MainActivity extends BaseActivity  {
-
-    private DrawerLayout mDrawerLayout;
->>>>>>> 420ab6e941f2421f1bab0ad78475cec656608801:app/src/main/java/pl/mobilization/conference2015/android/MainActivity.java
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,20 +90,7 @@ public class MainActivity extends BaseActivity  {
 
 
     }
-
-<<<<<<< HEAD:app/src/main/java/pl/mobilization/conference2015/MainActivity.java
-    private void initializeInjector() {
-        this.userComponent = DaggerUserComponent.builder()
-                .applicationComponent(getApplicationComponent())
-                .activityModule(getActivityModule())
-                .build();
-
-    }
-
-=======
->>>>>>> 420ab6e941f2421f1bab0ad78475cec656608801:app/src/main/java/pl/mobilization/conference2015/android/MainActivity.java
-
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.sample_actions, menu);
