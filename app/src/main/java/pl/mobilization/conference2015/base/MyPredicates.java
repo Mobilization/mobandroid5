@@ -6,7 +6,7 @@ import com.google.common.base.Predicates;
 import static com.google.common.base.Predicates.notNull;
 
 /**
- * Created by mario on 16.08.15.
+ * Created by mario on 05.09.15.
  */
 public class MyPredicates {
 
@@ -20,5 +20,5 @@ public class MyPredicates {
             return !input.toString().isEmpty();
         }
     };
-    public static Predicate<Object> notNullOrEmpty= Predicates.and(notNull(),MyPredicates.IS_NOT_EMPTY);
+    public static Predicate<Object> notNullOrEmpty= Predicates.and(notNull(), MyPredicates.IS_NOT_EMPTY);
 }

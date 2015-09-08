@@ -1,10 +1,12 @@
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.inject;
 
 import android.content.Context;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
+import pl.mobilization.conference2015.android.BackgroundProcessService;
+import pl.mobilization.conference2015.android.BaseActivity;
 import pl.mobilization.conference2015.sponsor.SponsorPresenter;
 
 /**

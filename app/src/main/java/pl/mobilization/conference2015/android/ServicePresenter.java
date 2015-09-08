@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.android;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
+import pl.mobilization.conference2015.android.BackgroundProcessService;
 
 /**
  * Created by msaramak on 31.07.15.

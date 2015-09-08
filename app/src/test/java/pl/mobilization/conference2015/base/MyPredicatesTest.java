@@ -1,13 +1,12 @@
 package pl.mobilization.conference2015.base;
 
-import junit.framework.TestCase;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import pl.mobilization.conference2015.BuildConfig;
+
 
 import static org.fest.assertions.api.Assertions.assertThat;
 

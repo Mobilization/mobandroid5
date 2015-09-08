@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.inject;
 
 import android.content.Context;
 
@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import de.greenrobot.event.EventBus;
+import pl.mobilization.conference2015.android.AndroidApplication;
 import pl.mobilization.conference2015.sponsor.SponsorPresenter;
 import pl.mobilization.conference2015.sponsor.repository.SponsorRepository;
 import pl.mobilization.conference2015.sponsor.repository.SponsorRepositoryOrmLite;
@@ -16,8 +17,9 @@ import pl.mobilization.conference2015.sponsor.rest.SponsorRestServiceRetrofit;
 /**
  * Created by msaramak on 29.07.15.
  */
-@Module(includes = {EventBusModule.class, SchedulersModule.class})
+@Module(includes = {SchedulersModule.class})
 public class ApplicationModule {
+
     private final AndroidApplication application;
 
     public ApplicationModule(AndroidApplication application) {
@@ -28,6 +30,12 @@ public class ApplicationModule {
     @Singleton
     Context provideApplicationContext() {
         return this.application;
+    }
+    
+    @Provides
+    @Singleton
+    EventBus provideEventBus(){
+        return EventBus.getDefault();
     }
 
     @Provides

@@ -1,4 +1,4 @@
-package pl.mobilization.conference2015.ui.component;
+package pl.mobilization.conference2015.android.ui.component;
 
 import android.net.Uri;
 import android.os.Bundle;

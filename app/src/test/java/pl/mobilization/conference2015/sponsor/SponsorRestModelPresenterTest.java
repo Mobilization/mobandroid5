@@ -33,8 +33,6 @@ import static org.mockito.Mockito.*;
 @Slf4j
 public class SponsorRestModelPresenterTest {
 
-    @Mock
-    SponsorRepository sponsorRepository;
 
     @Mock
     SponsorRestService sponsorRestService;
@@ -44,6 +42,8 @@ public class SponsorRestModelPresenterTest {
     @Mock
     SponsorsView view;
 
+    @Mock
+    SponsorRepository sponsorRepository;
     @Mock
     Context context;
     private SponsorPresenter testedSp;

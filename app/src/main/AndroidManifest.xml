@@ -23,9 +23,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".AndroidApplication"
+        android:name=".android.AndroidApplication"
         android:theme="@style/Theme.DesignDemo" >
-        <activity android:name=".MainActivity" >
+        <activity android:name=".android.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,15 +34,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CheeseDetailActivity"
-            android:parentActivityName=".MainActivity" >
+            android:name=".android.CheeseDetailActivity"
+            android:parentActivityName=".android.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pl.mobilization.conference2015.MainActivity" />
+                android:value=".android.MainActivity" />
         </activity>
 
         <service
-            android:name=".BackgroundProcessService"
+            android:name=".android.BackgroundProcessService"
             android:enabled="true"
             android:exported="true" >
         </service>

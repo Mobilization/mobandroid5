@@ -1,19 +1,16 @@
-package pl.mobilization.conference2015.ui.component;
+package pl.mobilization.conference2015.android.ui.component;
 
 import android.net.Uri;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.internal.bytecode.RobolectricInternals;
 
 import pl.mobilization.conference2015.BuildConfig;
-import pl.mobilization.conference2015.ui.component.LogoTitleDialog;
+
 import static org.fest.assertions.api.Assertions.assertThat;
 
 /**

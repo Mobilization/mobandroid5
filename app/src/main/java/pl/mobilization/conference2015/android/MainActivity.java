@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package pl.mobilization.conference2015;
+package pl.mobilization.conference2015.android;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -42,13 +42,20 @@ import java.util.Calendar;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
+import pl.mobilization.conference2015.R;
 import pl.mobilization.conference2015.sponsor.view.SponsorsFragment;
 
 @Slf4j
+<<<<<<< HEAD:app/src/main/java/pl/mobilization/conference2015/MainActivity.java
 public class MainActivity extends BaseActivity {
 
     private DrawerLayout mDrawerLayout;
 
+=======
+public class MainActivity extends BaseActivity  {
+
+    private DrawerLayout mDrawerLayout;
+>>>>>>> 420ab6e941f2421f1bab0ad78475cec656608801:app/src/main/java/pl/mobilization/conference2015/android/MainActivity.java
 
 
     @Override
@@ -58,7 +65,7 @@ public class MainActivity extends BaseActivity {
         log.info("MainActivity ");
 
 
-        this.initializeInjector();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -92,6 +99,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
+<<<<<<< HEAD:app/src/main/java/pl/mobilization/conference2015/MainActivity.java
     private void initializeInjector() {
         this.userComponent = DaggerUserComponent.builder()
                 .applicationComponent(getApplicationComponent())
@@ -100,6 +108,8 @@ public class MainActivity extends BaseActivity {
 
     }
 
+=======
+>>>>>>> 420ab6e941f2421f1bab0ad78475cec656608801:app/src/main/java/pl/mobilization/conference2015/android/MainActivity.java
 
 
     @Override
