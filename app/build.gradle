@@ -10,6 +10,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'groovyx.grooid.groovy-android'
+apply plugin: 'com.bmuschko.nexus'
 
 android {
     compileSdkVersion 21

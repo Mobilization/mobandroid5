@@ -23,7 +23,6 @@ import de.greenrobot.event.EventBus;
 import lombok.extern.slf4j.Slf4j;
 import pl.mobilization.conference2015.BaseFragment;
 import pl.mobilization.conference2015.R;
-import pl.mobilization.conference2015.UserComponent;
 import pl.mobilization.conference2015.sponsor.SponsorPresenter;
 import pl.mobilization.conference2015.sponsor.events.OnSponsorClickEvent;
 import pl.mobilization.conference2015.ui.component.LogoTitleDialog;

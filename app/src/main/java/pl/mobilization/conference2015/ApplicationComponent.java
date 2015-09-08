@@ -20,6 +20,15 @@ public interface ApplicationComponent {
     SponsorPresenter sponsorPresenter();
 
 
+    final class Initializer {
+
+        public static ApplicationComponent init(ApplicationModule applicationModule) {
+            return DaggerApplicationComponent.builder()
+                    .applicationModule(applicationModule)
+                    .build();
+        }
+    }
+
     void inject(BaseActivity baseActivity);
 
     void inject(BackgroundProcessService bps);

@@ -45,10 +45,10 @@ import lombok.extern.slf4j.Slf4j;
 import pl.mobilization.conference2015.sponsor.view.SponsorsFragment;
 
 @Slf4j
-public class MainActivity extends BaseActivity implements HasComponent<UserComponent> {
+public class MainActivity extends BaseActivity {
 
     private DrawerLayout mDrawerLayout;
-    private UserComponent userComponent;
+
 
 
     @Override
@@ -96,19 +96,10 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
         this.userComponent = DaggerUserComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
-                .userModule(new UserModule())
                 .build();
 
     }
 
-    public void setComponent(UserComponent userComponent) {
-        this.userComponent = userComponent;
-    }
-
-    @Override
-    public UserComponent getComponent() {
-        return userComponent;
-    }
 
 
     @Override
